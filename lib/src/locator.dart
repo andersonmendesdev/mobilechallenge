@@ -1,4 +1,4 @@
-// ignore_for_file: cascade_invocations
+// ignore_for_file: cascade_invocations, unused_local_variable
 
 import 'dart:convert';
 
@@ -20,10 +20,10 @@ final GetIt locator = GetIt.instance;
 Future<void> initiateDependencies() async {
   var packageInfo = await PackageInfo.fromPlatform();
   var encoding = Encoding.getByName('utf-8');
-  var useragent = '';
-  var apiURI = 'nfcontrole-dev.us-east-1.elasticbeanstalk.com';
+  var apiURI = 'randomuser.me';
+  var userAgent = '';
   try {
-    useragent = await FkUserAgent.getPropertyAsync('userAgent') ?? '';
+    userAgent = await FkUserAgent.getPropertyAsync('userAgent') ?? '';
   } catch (_) {}
   //
   if (kDebugMode) {
@@ -40,7 +40,7 @@ Future<void> initiateDependencies() async {
   locator
     ..registerLazySingleton<HTTPHelper>(
         () => HTTPHelper(encoding: encoding, httpClient: locator()))
-    ..registerLazySingleton<HTTPHeader>(() => HTTPHeader(userAgent: useragent))
+    ..registerLazySingleton<HTTPHeader>(() => HTTPHeader(userAgent: userAgent))
     ..registerLazySingleton<Client>(Client.new)
     ..registerLazySingleton<DeviceInfoPlugin>(DeviceInfoPlugin.new)
     ..registerLazySingleton<OverlayEntryServices>(OverlayEntryServices.new);
