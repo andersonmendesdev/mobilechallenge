@@ -3,6 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ColorPalette {
+  static MaterialColor color003461 = generateMaterialColor(const Color(0xff003461));
+  static MaterialColor color0083CA = generateMaterialColor(const Color(0xff0083CA));
+  static MaterialColor color00AFAD = generateMaterialColor(const Color(0xff00AFAD));
+  static MaterialColor colorF26522 = generateMaterialColor(const Color(0xffF26522));
+  static MaterialColor colorFCAF17 = generateMaterialColor(const Color(0xffFCAF17));
+
+
+
   static Color grey8c8c8c = const Color(0xff8c8c8c);
   static Color green22BAA0OPACITY05 = const Color.fromRGBO(34, 186, 160, 0.5);
   static MaterialColor green22BAA0 =

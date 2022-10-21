@@ -1,0 +1,1 @@
+const logoPharmainc = 'assets/logo.png';
