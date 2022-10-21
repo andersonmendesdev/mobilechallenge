@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../route/app_routes.dart';
+import '../widget/logo/logo_widget.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -28,7 +29,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     const primaryColor = Colors.white;
-
     const laodginiOS = CupertinoTheme(
         data: CupertinoThemeData(brightness: Brightness.light),
         child: CupertinoActivityIndicator(radius: 15));
@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const FlutterLogo(size: 150),
+                  const LogoWidget(width: 150),
                   const SizedBox(height: 20),
                   Platform.isAndroid ? loadginAndroid : laodginiOS,
                 ],
