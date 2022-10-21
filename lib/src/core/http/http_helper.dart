@@ -30,7 +30,7 @@ class HTTPHelper {
   }
 
   Future<Response> getClientHttp(HttpRequestParameters params) async {
-    var uri = await _getURi(params);
+    var uri = await getURi(params);
     switch (params.method) {
       case HTTPMethodEnum.get:
         return _httpClient.get(uri, headers: params.header);
@@ -46,22 +46,14 @@ class HTTPHelper {
     }
   }
 
-  Future<Uri> _getURi(HttpRequestParameters params) async {
-    var isDebugLocalHost =  params.uri.contains('localhost');
-    var uri = isDebugLocalHost
-        ? Uri.http(params.uri, params.paths)
-        : Uri.https(params.uri, params.paths);
+  Future<Uri> getURi(HttpRequestParameters params) async {
+    var uri =  Uri.https(params.uri, params.paths);
     if (params.queryParams.isNotEmpty) {
       if (params.isEncodedURI) {
-        uri = isDebugLocalHost
-            ? Uri.http(params.uri, params.paths, params.queryParams)
-            : Uri.https(params.uri, params.paths, params.queryParams);
+        uri = Uri.https(params.uri, params.paths, params.queryParams);
         return uri;
       }
-
-      var urihttp = isDebugLocalHost
-          ? Uri.http(params.uri, params.paths, params.queryParams)
-          : Uri.https(params.uri, params.paths, params.queryParams);
+      var urihttp = Uri.https(params.uri, params.paths, params.queryParams);
       var uriString = Uri.decodeFull(urihttp.toString());
       uri = Uri.parse(uriString);
       return uri;
