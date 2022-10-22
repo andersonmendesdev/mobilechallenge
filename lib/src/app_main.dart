@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => locator<UsersBloc>(),
       child: MaterialApp(
-        title: 'Control NFs',
+        title: 'My Users',
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.splash,
         routes: routes.getRoutes(),
