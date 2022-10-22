@@ -2,7 +2,7 @@
 
 enum TypeFilterEnum { nat, gender, all, none }
 
-enum FilterGenderEnum { male, female, none }
+enum FilterGenderEnum {none, male, female }
 
 enum FilterNatEnum {
   none,

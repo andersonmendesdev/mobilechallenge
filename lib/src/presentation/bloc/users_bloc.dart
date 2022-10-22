@@ -31,18 +31,22 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         _httpHeader = httpHeader,
         super(UsersState.initial()) {
     on<GetAllUserEvent>(_getAllUserEvent);
+    on<GetAllUserPaginationEvent>(_getAllUserPaginationEvent);
 
     on<SearchUserEvent>(_searchUserEvent);
     on<SearchUserClearEvent>(_searchUserClearEvent);
   }
 
-  /// this method [_getAllUserEvent] load all user and insert filter
+  /// event load all user and insert filter
   void _getAllUserEvent(GetAllUserEvent event, EmitterUSer emit) async {
     emit(state.copyWith(
         statusGetAll: StatusEnum.loading,
         filterGender: event.filterGender,
         filterNat: event.filterNat));
-    var queryParams = <String, String>{'results': _limitPaginate.toString()};
+    var queryParams = <String, String>{
+      'results': _limitPaginate.toString(),
+      'page': '1',
+    };
     var filterGender =
         (event.filterGender ?? state.filterGender).toValueString();
     var filterNat = (event.filterNat ?? state.filterNat).toValueQuery();
@@ -76,7 +80,58 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     emit(state.copyWith(
         statusGetAll: StatusEnum.initial,
         listAllUser: listAllUser,
-        listAllUserSearch: listAllUserSearch));
+        listAllUserSearch: listAllUserSearch,
+        page: 1,
+        statusPaginate: StatusEnum.initial));
+  }
+
+  ///event infinite pagination users
+  void _getAllUserPaginationEvent(
+      GetAllUserPaginationEvent event, EmitterUSer emit) async {
+    if (state.statusPaginate == StatusEnum.loading) return;
+    emit(state.copyWith(statusPaginate: StatusEnum.loading));
+    var page = state.page + 1;
+    var queryParams = <String, String>{
+      'results': _limitPaginate.toString(),
+      'page': page.toString(),
+    };
+    var filterGender = state.filterGender.toValueString();
+    var filterNat = state.filterNat.toValueQuery();
+    if (filterGender.isNotEmpty) {
+      queryParams.addAll({'gender': filterGender});
+    }
+    if (filterNat.isNotEmpty) {
+      queryParams.addAll({'nat': filterNat});
+    }
+    var params = HttpRequestParameters(
+        uri: _apiURI,
+        paths: '/api/$_apiVersion/',
+        header: _httpHeader.headerGetNoAuth(),
+        method: HTTPMethodEnum.get,
+        queryParams: queryParams);
+    var result = await _allUsersUsecase(params);
+
+    if (result is ResponseFailure) {
+      emit(state.copyWith(
+          statusPaginate: StatusEnum.failure,
+          errorMessage: result.errorMessage));
+      return;
+    }
+    var data = result.data ?? <UserEntity>[];
+    var listAllUser = <UserEntity>[];
+    var listAllUserSearch = <UserEntity>[];
+    for (var item in data) {
+      listAllUser.add(item.copyWith());
+      listAllUserSearch.add(item.copyWith());
+    }
+    emit(state.copyWith(
+        statusPaginate: StatusEnum.initial,
+        listAllUser: <UserEntity>[...state.listAllUser, ...listAllUser],
+        listAllUserSearch: <UserEntity>[
+          ...state.listAllUserSearch,
+          ...listAllUserSearch
+        ],
+        page: page));
   }
 
   void _searchUserEvent(SearchUserEvent event, EmitterUSer emit) async {

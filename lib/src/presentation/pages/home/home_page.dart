@@ -28,6 +28,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late UsersBloc _usersBloc;
   final controller = TextEditingController();
+  final scrollController = ScrollController();
   final focusNode = FocusNode();
   var query = '';
 
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
       ..add(const GetAllUserEvent());
     controller.addListener(_onChangeState);
     focusNode.addListener(_onChangeState);
+    scrollController.addListener(_scrollListerner);
   }
 
   @override
@@ -48,6 +50,9 @@ class _HomePageState extends State<HomePage> {
       ..dispose();
     controller
       ..removeListener(_onChangeState)
+      ..dispose();
+    scrollController
+      ..removeListener(_scrollListerner)
       ..dispose();
   }
 
@@ -125,21 +130,25 @@ class _HomePageState extends State<HomePage> {
                     var listAllUser = state.listAllUserSearch;
                     var listView = listAllUser.isEmpty
                         ? emptyState
-                        : ListView.builder(
-                            itemCount: listAllUser.length + 1,
-                            itemBuilder: (context, index) {
-                              // index >= 0 &&
-                              //     index <= listAllUser.length - 1
-                              if (index < listAllUser.length) {
-                                var user = listAllUser[index];
-                                var widgetCard = CardUserWidget(
-                                  userEntity: user,
-                                  onShowProfile: () => _onShowProfile(user),
-                                );
-                                return widgetCard;
-                              }
-                              return LoadingMoreWidget(query: query);
-                            },
+                        : Scrollbar(
+                            controller: scrollController,
+                            child: ListView.builder(
+                              controller: scrollController,
+                              itemCount: listAllUser.length + 1,
+                              itemBuilder: (context, index) {
+                                // index >= 0 &&
+                                //     index <= listAllUser.length - 1
+                                if (index < listAllUser.length) {
+                                  var user = listAllUser[index];
+                                  var widgetCard = CardUserWidget(
+                                    userEntity: user,
+                                    onShowProfile: () => _onShowProfile(user),
+                                  );
+                                  return widgetCard;
+                                }
+                                return LoadingMoreWidget(query: query);
+                              },
+                            ),
                           );
 
                     return SwitcherAnimateWidget(
@@ -158,6 +167,28 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  // _scrollController.addListener(() {
+  // if (_scrollController.position.maxScrollExtent ==
+  //     _scrollController.offset &&
+  //     !store.state.clientState.isloadingOffSet &&
+  //     store.state.clientState.listClientBottombar.length <
+  //     store.state.clientState.totalItens) {
+  //
+  //   }
+  // });
+
+  void _scrollListerner() {
+    var state = _usersBloc.state;
+    if (scrollController.hasClients &&
+        scrollController.position.maxScrollExtent == scrollController.offset &&
+        !(state.statusPaginate == StatusEnum.loading) &&
+        query.isEmpty) {
+      _usersBloc.add(GetAllUserPaginationEvent());
+    }
+  }
+
+
 
   void _onSubmitted(String value) {
     query = controller.text;
@@ -199,8 +230,11 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       context: context,
-      constraints: type == TypeFilterEnum.nat || type == TypeFilterEnum.all ? constraints : null,
-      isScrollControlled: type == TypeFilterEnum.nat || type == TypeFilterEnum.all,
+      constraints: type == TypeFilterEnum.nat || type == TypeFilterEnum.all
+          ? constraints
+          : null,
+      isScrollControlled:
+          type == TypeFilterEnum.nat || type == TypeFilterEnum.all,
       useSafeArea: type == TypeFilterEnum.nat || type == TypeFilterEnum.all,
       builder: (context) {
         return SafeArea(bottom: true, child: child);
@@ -234,19 +268,6 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
-
-  // _scrollController.addListener(() {
-  // if (_scrollController.position.maxScrollExtent ==
-  //     _scrollController.offset &&
-  //     !store.state.clientState.isloadingOffSet &&
-  //     store.state.clientState.listClientBottombar.length <
-  //     store.state.clientState.totalItens) {
-  //
-  //   }
-  // });
-
-
 }
 
 // ListView.separated(
@@ -267,3 +288,9 @@ class _HomePageState extends State<HomePage> {
 //      return Container();
 //   }
 // });
+// bool get _isBottom {
+//   if (!scrollController.hasClients) return false;
+//   final maxScroll = scrollController.position.maxScrollExtent;
+//   final currentScroll = scrollController.offset;
+//   return currentScroll >= (maxScroll * 0.7);
+// }

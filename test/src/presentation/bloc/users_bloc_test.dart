@@ -108,7 +108,7 @@ void main() {
             userState.copyWith(
                 statusGetAll: StatusEnum.initial,
                 listAllUser: mockingList,
-                listAllUserSearch: mockingList),
+                listAllUserSearch: mockingListAuxi),
           ]));
     });
 
@@ -152,7 +152,7 @@ void main() {
                 listAllUser: mockingList,
                 filterGender: FilterGenderEnum.female,
                 filterNat: FilterNatEnum.BR,
-                listAllUserSearch: mockingList),
+                listAllUserSearch: mockingListAuxi),
           ]));
     });
 
@@ -175,7 +175,7 @@ void main() {
                 statusGetAll: StatusEnum.initial,
                 listAllUser: mockingList,
                 filterGender: FilterGenderEnum.female,
-                listAllUserSearch: mockingList),
+                listAllUserSearch: mockingListAuxi),
           ]));
     });
     test(
@@ -197,7 +197,7 @@ void main() {
                 statusGetAll: StatusEnum.initial,
                 listAllUser: mockingList,
                 filterNat: FilterNatEnum.BR,
-                listAllUserSearch: mockingList),
+                listAllUserSearch: mockingListAuxi),
           ]));
     });
   });
@@ -223,7 +223,7 @@ void main() {
             statusGetAll: StatusEnum.initial,
             listAllUser: mockingList,
             filterNat: FilterNatEnum.BR,
-            listAllUserSearch: mockingList),
+            listAllUserSearch: mockingListAuxi),
 
       ]));
     });
@@ -243,7 +243,7 @@ void main() {
             statusGetAll: StatusEnum.initial,
             listAllUser: mockingList,
             filterNat: FilterNatEnum.BR,
-            listAllUserSearch: mockingList),
+            listAllUserSearch: mockingListAuxi),
 
       ]));
     });

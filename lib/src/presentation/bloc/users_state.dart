@@ -12,8 +12,6 @@ class UsersState extends Equatable {
   final FilterGenderEnum filterGender;
   final FilterNatEnum filterNat;
 
-
-
   const UsersState({
     required this.statusGetAll,
     required this.errorMessage,

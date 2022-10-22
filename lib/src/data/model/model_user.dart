@@ -110,14 +110,21 @@ class ModelUserLocation extends UserLocation {
       _address = mapStreet['name'] ?? '';
       _number = mapStreet['number'] ?? 0;
     }
-
+    var resulpostcode = 0;
+    var datapostocde = data['postcode'];
+    if(datapostocde is String){
+      resulpostcode = int.tryParse(datapostocde) ?? 0;
+    }
+    if(datapostocde is int){
+      resulpostcode = datapostocde;
+    }
     return ModelUserLocation(
       address: _address,
       number: _number,
       city: data['city'] ?? '',
       state: data['state'] ?? '',
       country: data['country'] ?? '',
-      postcode: data['postcode'] ?? 0,
+      postcode: resulpostcode,
     );
   }
 }

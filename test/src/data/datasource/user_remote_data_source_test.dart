@@ -23,7 +23,6 @@ void main() {
   late dynamic bodySuccess;
   late dynamic bodyError;
   late String bodySuccessString;
-  late String bodyErrorString;
   late Response responseSuccess;
   late Response responseError;
   late Response responseErro400;
@@ -36,9 +35,7 @@ void main() {
     httpHeader = MockHTTPHeader();
     httpHelper = MockHTTPHelper();
     remoteDataSourceImpl = UserRemoteDataSourceImpl(httpHelper: httpHelper);
-
     bodySuccessString = fixture('user_body.txt');
-    bodyErrorString = fixture('user_body_error.txt');
     bodySuccess = json.decode(fixture('user_results.json'));
     bodyError = json.decode(fixture('user_body_error.txt'));
     responseSuccess = Response(bodySuccessString, 200);

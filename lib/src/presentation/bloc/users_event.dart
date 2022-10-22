@@ -17,6 +17,8 @@ class GetAllUserEvent extends UsersEvent {
   List<Object?> get props => [filterGender, filterNat];
 }
 
+class GetAllUserPaginationEvent extends UsersEvent {}
+
 class SearchUserEvent extends UsersEvent {
   final String query;
 
