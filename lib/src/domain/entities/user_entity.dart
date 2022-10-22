@@ -50,7 +50,7 @@ class UserEntity extends Equatable {
 
   String get fullName => '${name.title} ${name.first} ${name.last}';
 
-  String get birthDay => DateFormat('MM/dd/yyyy').format(dob.date);
+  String get birthDay => DateFormat('dd/MM/yyyy').format(dob.date);
 
   @override
   List<Object?> get props => [
@@ -182,6 +182,8 @@ class UserId extends Equatable {
     );
   }
 
+  String get fullId => '$name $value';
+
   @override
   List<Object?> get props => [
         name,
@@ -194,7 +196,7 @@ class UserId extends Equatable {
 /// user location
 class UserLocation extends Equatable {
   final String address;
-  final String number;
+  final int number;
   final String city;
   final String state;
   final String country;
@@ -211,7 +213,7 @@ class UserLocation extends Equatable {
 
   UserLocation copyWith({
     String? address,
-    String? number,
+    int? number,
     String? city,
     String? state,
     String? country,
@@ -226,6 +228,9 @@ class UserLocation extends Equatable {
       postcode: postcode ?? this.postcode,
     );
   }
+  String get streetNumber => '$number $address';
+  String get cityCountryZip => '$city, $state $postcode';
+
 
   @override
   List<Object?> get props => [
