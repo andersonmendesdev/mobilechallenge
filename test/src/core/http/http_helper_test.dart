@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -43,13 +45,9 @@ void main() {
         paths: '/api',
         header: header.headerGetNoAuth(),
         method: HTTPMethodEnum.get,
-        queryParams: const <String, String>{
-          'results': '50'
-        }
-    );
-    uriResultQuery = Uri.https('randomuser.me', '/api', <String, String>{
-      'results': '50'
-    });
+        queryParams: const <String, String>{'results': '50'});
+    uriResultQuery =
+        Uri.https('randomuser.me', '/api', <String, String>{'results': '50'});
 
     parameterQueryEncode = HttpRequestParameters(
       uri: 'randomuser.me',
@@ -57,10 +55,7 @@ void main() {
       header: header.headerGetNoAuth(),
       method: HTTPMethodEnum.get,
       isEncodedURI: false,
-      queryParams: const <String, String>{
-        'results': '50'
-      },
-
+      queryParams: const <String, String>{'results': '50'},
     );
     uriResultQueryEncode = Uri.parse(Uri.decodeFull(uriResultQuery.toString()));
 
@@ -71,8 +66,8 @@ void main() {
   });
 
   group('HTTPHelper', () {
-    test(
-        'should return a response success when getClientHttp is called', () async {
+    test('should return a response success when getClientHttp is called',
+        () async {
       when(httpHelper.getClientHttp(parameter))
           .thenAnswer((_) async => responseSuccess);
       var result = await httpHelper.getClientHttp(parameter);
@@ -86,14 +81,13 @@ void main() {
       expect(result.statusCode, 200);
     });
 
-    test(
-        'should return a response failure when getClientHttp is called', () async {
+    test('should return a response failure when getClientHttp is called',
+        () async {
       when(httpHelper.getClientHttp(parameter))
           .thenAnswer((_) async => responseError);
       var result = await httpHelper.getClientHttp(parameter);
       expect(result, equals(responseError));
     });
-
 
     test('should return a Map when jsonDecod is called', () async {
       when(httpHelper.jsonDecod(bodyString))
@@ -102,9 +96,23 @@ void main() {
       expect(result, equals(bodySuccess));
     });
 
+    test('should return DecodedException when there is a throw in jsonDecod',
+        () async {
+      when(httpHelper.jsonDecod(bodyString)).thenThrow(DecodedException());
+      expect(() async => httpHelper.jsonDecod(bodyString),
+          throwsA(TypeMatcher<DecodedException>()));
+    });
+
+    test('should return a url with unencoded query when getUri is called',
+        () async {
+      when(httpHelper.getURi(parameterQueryEncode))
+          .thenAnswer((_) async => uriResultQueryEncode);
+      var result = await httpHelper.getURi(parameterQueryEncode);
+      expect(result, equals(uriResultQueryEncode));
+    });
+
     test('should return a url when getUri is called', () async {
-      when(httpHelper.getURi(parameter))
-          .thenAnswer((_) async => uriResult);
+      when(httpHelper.getURi(parameter)).thenAnswer((_) async => uriResult);
       var result = await httpHelper.getURi(parameter);
       expect(result, equals(uriResult));
     });
@@ -116,8 +124,8 @@ void main() {
       expect(result, equals(uriResultQuery));
     });
 
-    test(
-        'should return a url with unencoded query when getUri is called', () async {
+    test('should return a url with unencoded query when getUri is called',
+        () async {
       when(httpHelper.getURi(parameterQueryEncode))
           .thenAnswer((_) async => uriResultQueryEncode);
       var result = await httpHelper.getURi(parameterQueryEncode);
