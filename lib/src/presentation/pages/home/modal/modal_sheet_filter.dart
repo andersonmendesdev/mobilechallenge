@@ -67,7 +67,39 @@ class _ModalSheetFilterState extends State<ModalSheetFilter> {
             ),
           if (widget.type == TypeFilterEnum.nat)
             _BuilderFilterNat(
-                filterGender: _filterNat, onChangeFilter: _onChangeFilterNat),
+                filterGender: _filterNat,
+                onChangeFilter: _onChangeFilterNat,
+                isListViewExpanded: true),
+          if (widget.type == TypeFilterEnum.all)
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(bottom: 80),
+                children: [
+                  Column(
+                    children: const [
+                      SubTitleResumeWidget(text: 'Gender'),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                  _BuilderFilterGender(
+                      filterGender: _filterGender,
+                      onChangeFilter: _onChangeFilter),
+
+                  const Divider(height: 1),
+                  const SizedBox(height: 10),
+                  Column(
+                    children: const [
+                      SubTitleResumeWidget(text: 'Nationality'),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                  _BuilderFilterNat(
+                      filterGender: _filterNat,
+                      onChangeFilter: _onChangeFilterNat,
+                      isListViewExpanded: false),
+                ],
+              ),
+            ),
           Row(
             children: [
               Expanded(
@@ -135,25 +167,32 @@ class _BuilderFilterGender extends StatelessWidget {
 
 class _BuilderFilterNat extends StatelessWidget {
   const _BuilderFilterNat(
-      {Key? key, required this.filterGender, required this.onChangeFilter})
+      {Key? key,
+      required this.filterGender,
+      required this.onChangeFilter,
+      required this.isListViewExpanded})
       : super(key: key);
   final FilterNatEnum filterGender;
   final void Function(FilterNatEnum? value) onChangeFilter;
+  final bool isListViewExpanded;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.only(bottom: 40),
-        children: [
-          for (var item in FilterNatEnum.values)
-            RadioActionWidget<FilterNatEnum>(
-                title: item.toValueView(),
-                value: filterGender,
-                valueFilter: item,
-                onChange: onChangeFilter),
-        ],
-      ),
-    );
+    var listWidget = <Widget>[
+      for (var item in FilterNatEnum.values)
+        RadioActionWidget<FilterNatEnum>(
+            title: item.toValueView(),
+            value: filterGender,
+            valueFilter: item,
+            onChange: onChangeFilter),
+    ];
+    if (isListViewExpanded) {
+      return Expanded(
+        child: ListView(
+            padding: const EdgeInsets.only(bottom: 40), children: listWidget),
+      );
+    }
+
+    return Column(children: listWidget);
   }
 }

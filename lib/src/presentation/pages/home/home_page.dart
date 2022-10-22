@@ -198,9 +198,9 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       context: context,
-      constraints: type == TypeFilterEnum.nat ? constraints : null,
-      isScrollControlled: type == TypeFilterEnum.nat,
-      useSafeArea: type == TypeFilterEnum.nat,
+      constraints: type == TypeFilterEnum.nat || type == TypeFilterEnum.all ? constraints : null,
+      isScrollControlled: type == TypeFilterEnum.nat || type == TypeFilterEnum.all,
+      useSafeArea: type == TypeFilterEnum.nat || type == TypeFilterEnum.all,
       builder: (context) {
         return SafeArea(bottom: true, child: child);
       },
