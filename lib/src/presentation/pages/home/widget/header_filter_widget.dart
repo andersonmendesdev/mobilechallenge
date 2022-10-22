@@ -2,29 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/enum/enum_filter.dart';
 
-// class FilterData {
-//   String name;
-//   TypeFilterEnum type;
-//
-//   FilterData({required this.name, required this.type});
-// }
-
-// final listFilters = <FilterData>[
-//   FilterData(name: 'Gender', type: TypeFilterEnum.gender),
-//   FilterData(name: 'Nationality', type: TypeFilterEnum.nat),
-// ];
-
-// children: List.generate(
-//   listFilters.length,
-//   (index) {
-//     var isLast = listFilters.length == index + 1;
-//     return _ButtonFilterWidget(
-//         onTap: () => onTouch(listFilters[index].type),
-//         isLastItem: isLast,
-//         label: listFilters[index].name);
-//   },
-// ),
-
 class HeaderFilterWidget extends StatelessWidget {
   const HeaderFilterWidget({
     Key? key,

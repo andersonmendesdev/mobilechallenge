@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'src/app_main.dart';
 import 'src/core/certificate/cert.dart';
 import 'src/locator.dart' as di;
+import 'src/locator.dart';
+import 'src/presentation/bloc/users_bloc.dart';
 
 
 void main() async {
@@ -38,7 +40,7 @@ void main() async {
     if (kDebugMode) {
      // Bloc.observer = SimpleBlocObserver();
     }
-    runApp(const MyApp());
+    runApp(MyApp(bloc: locator<UsersBloc>()));
   }, (exception, stackTrace) async {
     // crashlytics
     // sentry

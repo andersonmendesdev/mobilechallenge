@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 import '../../../core/enum/enum_filter.dart';
 import '../../../core/enum/enum_status.dart';
 import '../../../domain/entities/user_entity.dart';
@@ -150,7 +151,6 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           );
-
                     return SwitcherAnimateWidget(
                       child: state.statusGetAll == StatusEnum.loading
                           ? const SchimmerCards()
