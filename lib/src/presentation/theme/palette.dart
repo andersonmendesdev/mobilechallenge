@@ -23,6 +23,7 @@ class ColorPalette {
   static const Color grayHint = Color(0xffC7C9D9);
   static Color colorWhitSmoke = const Color(0xfff5f5f5);
   static Color redf56B4DOPACITY05 = const Color.fromRGBO(245, 107, 77, 0.5);
+  static const Color black33333F = Color(0xff33333F);
 }
 
 MaterialColor generateMaterialColor(Color color) {
