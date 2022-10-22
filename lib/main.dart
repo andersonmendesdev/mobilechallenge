@@ -4,11 +4,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'src/app_main.dart';
-import 'src/bloc_observer.dart';
 import 'src/core/certificate/cert.dart';
+import 'src/locator.dart' as di;
 
 
 void main() async {
@@ -19,7 +18,7 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   //starting dependency injection.
-  //await di.initiateDependencies();
+  await di.initiateDependencies();
 
   // block rotation
   SystemChrome.setPreferredOrientations(
@@ -37,7 +36,7 @@ void main() async {
   //zone guard capture exception and stacktrace
   runZonedGuarded(() async {
     if (kDebugMode) {
-      Bloc.observer = SimpleBlocObserver();
+     // Bloc.observer = SimpleBlocObserver();
     }
     runApp(const MyApp());
   }, (exception, stackTrace) async {
