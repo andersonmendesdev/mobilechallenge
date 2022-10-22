@@ -46,6 +46,9 @@ dependencies:
   #internect connection
   internet_connection_checker: ^0.0.1+3
 
+  #image
+  cached_network_image: ^3.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,4 +66,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/image/
+    - assets/illustration/
+    - .env
