@@ -41,36 +41,3 @@ PageRouteBuilder pageRouteBuilder({
             child: child),
   );
 }
-
-// PageRouteBuilder pageRouteBuilderSearch({required RouteSettings settings}) {
-//   return PageRouteBuilder(
-//       settings: settings,
-//       opaque: false,
-//       transitionDuration: const Duration(milliseconds: 300),
-//       reverseTransitionDuration: const Duration(milliseconds: 300),
-//       maintainState: false,
-//       pageBuilder: (context, animation, secondaryAnimation) =>
-//           SearchPage(animation: animation),
-//       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-//           FadeTransition(
-//             opacity: animation,
-//             child: child,
-//           ));
-// }
-
-// PageRouteBuilder pageRouteBuilderInvoiceSearch(
-//     {required RouteSettings settings}) {
-//   return PageRouteBuilder(
-//       settings: settings,
-//       opaque: false,
-//       transitionDuration: const Duration(milliseconds: 300),
-//       reverseTransitionDuration: const Duration(milliseconds: 300),
-//       maintainState: false,
-//       pageBuilder: (context, animation, secondaryAnimation) =>
-//           InvoicePageSearch(animation: animation),
-//       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-//           FadeTransition(
-//             opacity: animation,
-//             child: child,
-//           ));
-// }

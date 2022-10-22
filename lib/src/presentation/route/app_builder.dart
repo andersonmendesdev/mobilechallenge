@@ -14,7 +14,8 @@ Route generateRoutes(RouteSettings settings) {
           settings: settings,
           barrierDismissible: true);
     default:
-      return pagebuider.materialBuilder(widget: const ErrorPage(), settings: settings);
+      return pagebuider.materialBuilder(
+          widget: const ErrorPage(), settings: settings);
   }
 }
 
