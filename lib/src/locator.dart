@@ -1,5 +1,3 @@
-// ignore_for_file: cascade_invocations, unused_local_variable
-
 import 'dart:convert';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -13,6 +11,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'core/http/http_header.dart';
 import 'core/http/http_helper.dart';
 import 'core/overlay/overlay_services.dart';
+import 'data/datasource/remote/use_remote_data_source.dart';
+import 'data/datasource/remote/user_remote_data_source_impl.dart';
+import 'data/repositories/user_repository_impl.dart';
+import 'domain/repositories/user_repository.dart';
+import 'domain/usecases/usecase_get_users.dart';
 import 'presentation/bloc/users_bloc.dart';
 
 final GetIt locator = GetIt.instance;
@@ -21,6 +24,7 @@ Future<void> initiateDependencies() async {
   var packageInfo = await PackageInfo.fromPlatform();
   var encoding = Encoding.getByName('utf-8');
   var apiURI = 'randomuser.me';
+  var apiVersion = '1.4';
   var userAgent = '';
   try {
     userAgent = await FkUserAgent.getPropertyAsync('userAgent') ?? '';
@@ -35,9 +39,18 @@ Future<void> initiateDependencies() async {
   }
   //bloc
   debugPrint('uri: $apiURI');
-  locator.registerLazySingleton<UsersBloc>(UsersBloc.new);
-
   locator
+    ..registerLazySingleton<UsersBloc>(() => UsersBloc(
+        allUsersUsecase: locator(),
+        apiURI: apiURI,
+        httpHeader: locator(),
+        apiVersion: apiVersion))
+    ..registerLazySingleton<GetAllUsersUsecase>(
+        () => GetAllUsersUsecase(repository: locator()))
+    ..registerLazySingleton<UserRepository>(
+        () => UserRepositoryImpl(remoteDataSource: locator()))
+    ..registerLazySingleton<UserRemoteDataSource>(
+        () => UserRemoteDataSourceImpl(httpHelper: locator()))
     ..registerLazySingleton<HTTPHelper>(
         () => HTTPHelper(encoding: encoding, httpClient: locator()))
     ..registerLazySingleton<HTTPHeader>(() => HTTPHeader(userAgent: userAgent))
