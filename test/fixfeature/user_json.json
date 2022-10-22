@@ -1,0 +1,56 @@
+{
+  "gender": "female",
+  "name": {
+    "title": "Mrs",
+    "first": "Beverley",
+    "last": "Pierce"
+  },
+  "location": {
+    "street": {
+      "number": 9102,
+      "name": "N Stelling Rd"
+    },
+    "city": "Irvine",
+    "state": "Wyoming",
+    "country": "United States",
+    "postcode": 59221,
+    "coordinates": {
+      "latitude": "82.4137",
+      "longitude": "87.7466"
+    },
+    "timezone": {
+      "offset": "+3:30",
+      "description": "Tehran"
+    }
+  },
+  "email": "beverley.pierce@example.com",
+  "login": {
+    "uuid": "1b89e87f-8f92-463e-8190-b46ef0c0311a",
+    "username": "angrypanda369",
+    "password": "mandy1",
+    "salt": "7Jizn6Fe",
+    "md5": "a5e637b816cdda6f9552c4553aaddcc2",
+    "sha1": "55c0287c84b0b75f051969e3fcd4403ac16021ed",
+    "sha256": "d07c9b9a885a8275a62f395a6b123792f618f756907adfb7104c19bc2ffbb352"
+  },
+  "dob": {
+    "date": "1967-03-07T08:52:28.865Z",
+    "age": 55
+  },
+  "registered": {
+    "date": "2020-01-23T05:36:58.403Z",
+    "age": 2
+  },
+  "phone": "(270) 300-6062",
+  "cell": "(206) 447-3306",
+  "id": {
+    "name": "SSN",
+    "value": "113-42-0860"
+  },
+  "picture": {
+    "large": "https://randomuser.me/api/portraits/women/93.jpg",
+    "medium": "https://randomuser.me/api/portraits/med/women/93.jpg",
+    "thumbnail": "https://randomuser.me/api/portraits/thumb/women/93.jpg"
+  },
+  "nat": "US"
+}

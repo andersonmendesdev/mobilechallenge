@@ -14,9 +14,9 @@ import 'modal/modal_sheet_filter.dart';
 import 'widget/card_user_widget.dart';
 import 'widget/header_filter_widget.dart';
 import 'widget/loading_more_widget.dart';
+import 'widget/profile_user_widget.dart';
 import 'widget/search_field_widget.dart';
 import 'widget/title_home_widget.dart';
-import 'widget/user_profile_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -128,8 +128,9 @@ class _HomePageState extends State<HomePage> {
                         : ListView.builder(
                             itemCount: listAllUser.length + 1,
                             itemBuilder: (context, index) {
-                              if (index >= 0 &&
-                                  index <= listAllUser.length - 1) {
+                              // index >= 0 &&
+                              //     index <= listAllUser.length - 1
+                              if (index < listAllUser.length) {
                                 var user = listAllUser[index];
                                 var widgetCard = CardUserWidget(
                                   userEntity: user,
@@ -192,8 +193,8 @@ class _HomePageState extends State<HomePage> {
     showCustomModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
+          topLeft: Radius.circular(6),
+          topRight: Radius.circular(6),
         ),
       ),
       backgroundColor: Colors.white,
@@ -214,8 +215,8 @@ class _HomePageState extends State<HomePage> {
     showCustomModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
+          topLeft: Radius.circular(6),
+          topRight: Radius.circular(6),
         ),
       ),
       backgroundColor: Colors.white,
@@ -233,4 +234,36 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
+
+  // _scrollController.addListener(() {
+  // if (_scrollController.position.maxScrollExtent ==
+  //     _scrollController.offset &&
+  //     !store.state.clientState.isloadingOffSet &&
+  //     store.state.clientState.listClientBottombar.length <
+  //     store.state.clientState.totalItens) {
+  //
+  //   }
+  // });
+
+
 }
+
+// ListView.separated(
+//   controller: _scrollController,
+//   separatorBuilder: (context, index) => Divider(height: 1),
+//   padding: EdgeInsets.all(0.0),
+//   itemCount: listClientBottombar.length + 1,
+//   itemBuilder: (BuildContext context, int index) {
+//   if (index < listClientBottombar.length) {
+//     return makelist(context, listClientBottombar[index], index, vm);
+//   } else if (vm.clientState.offset < vm.clientState.totalItens &&
+//     listClientBottombar.length < vm.clientState.totalItens) {
+//     return Padding(
+//     padding: EdgeInsets.symmetric(vertical: 26.0),
+//     child: Center(child: loadingbottomlist),
+//     );
+//   } else {
+//      return Container();
+//   }
+// });

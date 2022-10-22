@@ -17,29 +17,31 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     debugPrint('${response.statusCode}::${response.request?.url ?? ''}');
     switch (response.statusCode) {
       case 200:
-        var jsonString = await _httpHelper.utfdecode(response.bodyBytes);
-        var jsonData = await _httpHelper.jsonDecod(jsonString);
-        var message = jsonData['error'];
-        if (message is String) {
-          throw ApiException(message);
-        }
-        var results = jsonData['results'];
-        if (results is List) {
-          var userList = <UserEntity>[];
-          for(var item in results){
-            if(item is Map){
-              userList.add(ModelUser.fromJson(item));
-            }
+        var jsonData = await _httpHelper.jsonDecod(response.body);
+        if(jsonData is Map){
+          var message = jsonData['error'] ?? '';
+          if (message is String && message.isNotEmpty) {
+            throw ApiException(message);
           }
-          return userList;
+          var results = jsonData['results'];
+          if (results is List) {
+            var userList = <UserEntity>[];
+            for(var item in results){
+              if(item is Map){
+                userList.add(ModelUser.fromJson(item));
+              }
+            }
+            return userList;
+          }
         }
         throw ApiException(exceptionMessageGen);
       default:
-        var jsonString = await _httpHelper.utfdecode(response.bodyBytes);
-        var jsonData = await _httpHelper.jsonDecod(jsonString);
-        var message = jsonData['error'];
-        if (message is String) {
-          throw ApiException(message);
+        var jsonData = await _httpHelper.jsonDecod(response.body);
+        if(jsonData is Map){
+          var message = jsonData['error'] ?? '';
+          if (message is String && message.isNotEmpty) {
+            throw ApiException(message);
+          }
         }
         throw ApiException(exceptionMessageGen);
     }

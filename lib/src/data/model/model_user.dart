@@ -55,13 +55,16 @@ class ModelUserDob extends UserDob {
   }
 
   static DateTime _getDateTime(String? date) {
+     var datenow =DateTime.now();
+     var defaultDate = DateTime(datenow.year, datenow.month, datenow.day);
     try {
       if (date == null || date == '') {
-        return DateTime.now();
+        return defaultDate;
       }
-      return DateFormat('yyyy-MM-ddTH:mm:sszzz').parse(date);
-    } catch (e) {
-      return DateTime.now();
+      var resullt = DateFormat('yyyy-MM-ddTH:mm:sszzz').parse(date);
+      return DateTime(resullt.year, resullt.month, resullt.day);
+    } catch (_) {
+      return defaultDate;
     }
   }
 }
@@ -114,7 +117,7 @@ class ModelUserLocation extends UserLocation {
       city: data['city'] ?? '',
       state: data['state'] ?? '',
       country: data['country'] ?? '',
-      postcode: (data['postcode'] ?? '').toString(),
+      postcode: data['postcode'] ?? 0,
     );
   }
 }

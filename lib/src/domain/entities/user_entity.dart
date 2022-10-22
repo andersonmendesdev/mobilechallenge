@@ -36,7 +36,7 @@ class UserEntity extends Equatable {
     UserLocation? location,
   }) {
     return UserEntity(
-      id: id ?? this.id,
+      id: id ?? this.id.copyWith(),
       gender: gender ?? this.gender,
       email: email ?? this.email,
       phone: phone ?? this.phone,
@@ -44,7 +44,7 @@ class UserEntity extends Equatable {
       dob: dob ?? this.dob.copyWith(),
       picture: picture ?? this.picture.copyWith(),
       nat: nat ?? this.nat,
-      location: location ?? this.location,
+      location: location ?? this.location.copyWith(),
     );
   }
 
@@ -200,7 +200,7 @@ class UserLocation extends Equatable {
   final String city;
   final String state;
   final String country;
-  final String postcode;
+  final int postcode;
 
   const UserLocation({
     required this.address,
@@ -217,7 +217,7 @@ class UserLocation extends Equatable {
     String? city,
     String? state,
     String? country,
-    String? postcode,
+    int? postcode,
   }) {
     return UserLocation(
       address: address ?? this.address,

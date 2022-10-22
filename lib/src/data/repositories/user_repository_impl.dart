@@ -31,7 +31,7 @@ class UserRepositoryImpl implements UserRepository {
       return ResponseFailure(handshakeExceptionMessage);
     } on DecodedException {
       return ResponseFailure(exceptionMessage);
-    } catch (e,stack) {
+    } catch (e) {
       return ResponseFailure(e.toString());
     }
   }

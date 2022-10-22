@@ -10,7 +10,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import 'core/http/http_header.dart';
 import 'core/http/http_helper.dart';
-import 'core/overlay/overlay_services.dart';
 import 'data/datasource/remote/use_remote_data_source.dart';
 import 'data/datasource/remote/user_remote_data_source_impl.dart';
 import 'data/repositories/user_repository_impl.dart';
@@ -55,6 +54,5 @@ Future<void> initiateDependencies() async {
         () => HTTPHelper(encoding: encoding, httpClient: locator()))
     ..registerLazySingleton<HTTPHeader>(() => HTTPHeader(userAgent: userAgent))
     ..registerLazySingleton<Client>(Client.new)
-    ..registerLazySingleton<DeviceInfoPlugin>(DeviceInfoPlugin.new)
-    ..registerLazySingleton<OverlayEntryServices>(OverlayEntryServices.new);
+    ..registerLazySingleton<DeviceInfoPlugin>(DeviceInfoPlugin.new);
 }
