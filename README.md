@@ -2,7 +2,7 @@
 
 * [Link apresentação](https://www.loom.com/embed/4ef8d5290e9b461f83514ae0b592836b)
 
-## O projeto.
+## Projeto (mobilechallenge - My Users).
 
 * Todos os requisitos do projeto foram cumpridos e o designer do Wireframe foi seguido, mas ouve pequenas adaptações, principalmente na questão do filtro.
 
