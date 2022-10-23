@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import '../../../core/enum/enum_filter.dart';
 import '../../../core/enum/enum_status.dart';
 import '../../../domain/entities/user_entity.dart';
@@ -151,6 +150,7 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           );
+
                     return SwitcherAnimateWidget(
                       child: state.statusGetAll == StatusEnum.loading
                           ? const SchimmerCards()
@@ -167,17 +167,9 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // _scrollController.addListener(() {
-  // if (_scrollController.position.maxScrollExtent ==
-  //     _scrollController.offset &&
-  //     !store.state.clientState.isloadingOffSet &&
-  //     store.state.clientState.listClientBottombar.length <
-  //     store.state.clientState.totalItens) {
-  //
-  //   }
-  // });
-
+  ///rules for pagination, if there is active search,
+  ///it does not allow pagination, if it already hears
+  ///a search in progress, it also does not allow pagination.
   void _scrollListerner() {
     var state = _usersBloc.state;
     if (scrollController.hasClients &&
@@ -188,17 +180,25 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // bool get _isBottom {
+//   if (!scrollController.hasClients) return false;
+//   final maxScroll = scrollController.position.maxScrollExtent;
+//   final currentScroll = scrollController.offset;
+//   return currentScroll >= (maxScroll * 0.7);
+// }
 
-
+  ///send query to fetch user
   void _onSubmitted(String value) {
     query = controller.text;
     _usersBloc.add(SearchUserEvent(query: controller.text));
   }
 
+  ///event called by focusNode and controller listeners to rebuild
   void _onChangeState() {
     setState(() {});
   }
 
+  ///search and query controller cleanup event
   void _onClear() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.text = '';
@@ -269,28 +269,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// ListView.separated(
-//   controller: _scrollController,
-//   separatorBuilder: (context, index) => Divider(height: 1),
-//   padding: EdgeInsets.all(0.0),
-//   itemCount: listClientBottombar.length + 1,
-//   itemBuilder: (BuildContext context, int index) {
-//   if (index < listClientBottombar.length) {
-//     return makelist(context, listClientBottombar[index], index, vm);
-//   } else if (vm.clientState.offset < vm.clientState.totalItens &&
-//     listClientBottombar.length < vm.clientState.totalItens) {
-//     return Padding(
-//     padding: EdgeInsets.symmetric(vertical: 26.0),
-//     child: Center(child: loadingbottomlist),
-//     );
-//   } else {
-//      return Container();
-//   }
-// });
-// bool get _isBottom {
-//   if (!scrollController.hasClients) return false;
-//   final maxScroll = scrollController.position.maxScrollExtent;
-//   final currentScroll = scrollController.offset;
-//   return currentScroll >= (maxScroll * 0.7);
-// }
