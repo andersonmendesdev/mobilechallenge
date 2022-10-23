@@ -27,14 +27,14 @@ class _JumpingDotsState extends State<JumpingDots>
 
   @override
   void initState() {
-    super.initState();
     _initAnimation();
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _onDisposeAll();
+    super.dispose();
   }
 
   void _onDisposeAll() {

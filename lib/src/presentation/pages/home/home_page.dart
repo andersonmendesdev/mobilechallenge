@@ -34,17 +34,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();
     _usersBloc = BlocProvider.of<UsersBloc>(context)
       ..add(const GetAllUserEvent());
     controller.addListener(_onChangeState);
     focusNode.addListener(_onChangeState);
     scrollController.addListener(_scrollListerner);
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     focusNode
       ..removeListener(_onChangeState)
       ..dispose();
@@ -54,6 +53,7 @@ class _HomePageState extends State<HomePage> {
     scrollController
       ..removeListener(_scrollListerner)
       ..dispose();
+    super.dispose();
   }
 
   @override
