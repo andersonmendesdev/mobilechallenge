@@ -70,7 +70,7 @@ Pra verificar uma perfomance de qualidade recomendo o uso de dispositivo fisico 
 flutter pub get && flutter run --profile
  ```
 
-**Obs:** Caso receca algum erro, pule para o passo 1.
+**Obs:** Caso receba algum erro, pule para o passo 1.
 
 **Passo 1:** Abra o arquivo ```Runner.xcwordspace``` que fica em ```mobilechallenge/ios```.
 
