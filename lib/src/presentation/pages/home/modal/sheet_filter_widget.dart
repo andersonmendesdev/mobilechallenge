@@ -106,13 +106,13 @@ class _ModalSheetFilterState extends State<ModalSheetFilter> {
 
   void _onChangeFilter(FilterGenderEnum? value) {
     setState(() {
-      _filterGender = value!;
+      _filterGender = value ?? FilterGenderEnum.none;
     });
   }
 
   void _onChangeFilterNat(FilterNatEnum? value) {
     setState(() {
-      _filterNat = value!;
+      _filterNat = value ?? FilterNatEnum.none;
     });
   }
 }
@@ -127,34 +127,23 @@ class _BuilderFilterGender extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+        spacing: 20,
         children: [
-          ButtonFilterGenderWidget(
+          ButtonFilterWidget<FilterGenderEnum>(
             icon: Icons.male,
             label: 'Male',
-            genderValue: FilterGenderEnum.male,
-            currentGender: filterGender,
-            onTap: onChangeFilter,
+            value: FilterGenderEnum.male,
+            groupValue: filterGender,
+            onTap: (value) => onChangeFilter(value ?? FilterGenderEnum.none),
           ),
-          ButtonFilterGenderWidget(
+          ButtonFilterWidget(
               icon: Icons.female,
               label: 'Female',
-              genderValue: FilterGenderEnum.female,
-              currentGender: filterGender,
+              value: FilterGenderEnum.female,
+              groupValue: filterGender,
               onTap: onChangeFilter),
         ]);
-    // return Column(
-    //   children: <Widget>[
-    //     for (var item in FilterGenderEnum.values)
-    //       RadioActionWidget<FilterGenderEnum>(
-    //           title: item.toValueView(),
-    //           value: filterGender,
-    //           valueFilter: item,
-    //           onChange: onChangeFilter),
-    //   ],
-    // );
   }
 }
 
@@ -172,26 +161,26 @@ class _BuilderFilterNat extends StatelessWidget {
       if(item == FilterNatEnum.none){
         return Container();
       }
-      return ButtonFilterNatWidget(
-          icon: item.toValueQuery().isEmpty ? 'NONE' : item.toValueQuery(),
+      return ButtonFilterWidget<FilterNatEnum>(
+          iconLabel: item.toValueQuery().isEmpty ? 'NONE' : item.toValueQuery(),
           label: item.toValueView(),
-          natValue: item,
-          currentNat: filterNat,
+          value: item,
+          groupValue: filterNat,
           onTap: onChangeFilter);
     });
 
     return Expanded(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Wrap(
-              spacing: 15,
-              runSpacing: 15,
-              alignment: WrapAlignment.center,
-              children: listWidget,
-            ),
-            //const SizedBox(height: 80)
-          ],
+        child:  Column(
+            children: [
+              Wrap(
+                spacing: 18,
+                runSpacing: 15,
+                alignment: WrapAlignment.center,
+                children: listWidget,
+              ),
+              //const SizedBox(height: 80)
+            ],
         ),
       ),
     );
