@@ -12,8 +12,7 @@ void main(){
   setUp(() async {
     httpHeader = MockHTTPHeader();
   });
-  
-  
+
   test('should expect a header to type Map<String, String>', () async {
     when(httpHeader.headerGetNoAuth()).thenAnswer((_) => <String, String>{});
     var result = httpHeader.headerGetNoAuth();

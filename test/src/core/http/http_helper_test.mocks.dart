@@ -4,12 +4,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:convert' as _i3;
 import 'dart:typed_data' as _i5;
 
 import 'package:http/http.dart' as _i2;
-import 'package:mobilechallenge/src/core/http/http_helper.dart' as _i3;
+import 'package:mobilechallenge/src/core/http/http_helper.dart' as _i6;
 import 'package:mobilechallenge/src/core/http/http_request_parameters.dart'
-    as _i6;
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -33,8 +34,9 @@ class _FakeResponse_0 extends _i1.SmartFake implements _i2.Response {
         );
 }
 
-class _FakeUri_1 extends _i1.SmartFake implements Uri {
-  _FakeUri_1(
+class _FakeStreamedResponse_1 extends _i1.SmartFake
+    implements _i2.StreamedResponse {
+  _FakeStreamedResponse_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -43,19 +45,436 @@ class _FakeUri_1 extends _i1.SmartFake implements Uri {
         );
 }
 
-/// A class which mocks [HTTPHelper].
+class _FakeConverter_2<S, T> extends _i1.SmartFake
+    implements _i3.Converter<S, T> {
+  _FakeConverter_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCodec_3<S, T> extends _i1.SmartFake implements _i3.Codec<S, T> {
+  _FakeCodec_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUri_4 extends _i1.SmartFake implements Uri {
+  _FakeUri_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHTTPHelper extends _i1.Mock implements _i3.HTTPHelper {
+class MockClient extends _i1.Mock implements _i2.Client {
   @override
-  _i4.Future<String> utfdecode(_i5.Uint8List? data) => (super.noSuchMethod(
+  _i4.Future<_i2.Response> head(
+    Uri? url, {
+    Map<String, String>? headers,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #utfdecode,
-          [data],
+          #head,
+          [url],
+          {#headers: headers},
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #head,
+            [url],
+            {#headers: headers},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #head,
+            [url],
+            {#headers: headers},
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<_i2.Response> get(
+    Uri? url, {
+    Map<String, String>? headers,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #get,
+          [url],
+          {#headers: headers},
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #get,
+            [url],
+            {#headers: headers},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #get,
+            [url],
+            {#headers: headers},
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<_i2.Response> post(
+    Uri? url, {
+    Map<String, String>? headers,
+    Object? body,
+    _i3.Encoding? encoding,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #post,
+          [url],
+          {
+            #headers: headers,
+            #body: body,
+            #encoding: encoding,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #post,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #post,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<_i2.Response> put(
+    Uri? url, {
+    Map<String, String>? headers,
+    Object? body,
+    _i3.Encoding? encoding,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #put,
+          [url],
+          {
+            #headers: headers,
+            #body: body,
+            #encoding: encoding,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #put,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #put,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<_i2.Response> patch(
+    Uri? url, {
+    Map<String, String>? headers,
+    Object? body,
+    _i3.Encoding? encoding,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #patch,
+          [url],
+          {
+            #headers: headers,
+            #body: body,
+            #encoding: encoding,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #patch,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #patch,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<_i2.Response> delete(
+    Uri? url, {
+    Map<String, String>? headers,
+    Object? body,
+    _i3.Encoding? encoding,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [url],
+          {
+            #headers: headers,
+            #body: body,
+            #encoding: encoding,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #delete,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
+          this,
+          Invocation.method(
+            #delete,
+            [url],
+            {
+              #headers: headers,
+              #body: body,
+              #encoding: encoding,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Response>);
+  @override
+  _i4.Future<String> read(
+    Uri? url, {
+    Map<String, String>? headers,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #read,
+          [url],
+          {#headers: headers},
         ),
         returnValue: _i4.Future<String>.value(''),
         returnValueForMissingStub: _i4.Future<String>.value(''),
       ) as _i4.Future<String>);
+  @override
+  _i4.Future<_i5.Uint8List> readBytes(
+    Uri? url, {
+    Map<String, String>? headers,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readBytes,
+          [url],
+          {#headers: headers},
+        ),
+        returnValue: _i4.Future<_i5.Uint8List>.value(_i5.Uint8List(0)),
+        returnValueForMissingStub:
+            _i4.Future<_i5.Uint8List>.value(_i5.Uint8List(0)),
+      ) as _i4.Future<_i5.Uint8List>);
+  @override
+  _i4.Future<_i2.StreamedResponse> send(_i2.BaseRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #send,
+          [request],
+        ),
+        returnValue:
+            _i4.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_1(
+          this,
+          Invocation.method(
+            #send,
+            [request],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_1(
+          this,
+          Invocation.method(
+            #send,
+            [request],
+          ),
+        )),
+      ) as _i4.Future<_i2.StreamedResponse>);
+  @override
+  void close() => super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [Encoding].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEncoding extends _i1.Mock implements _i3.Encoding {
+  @override
+  _i3.Converter<String, List<int>> get encoder => (super.noSuchMethod(
+        Invocation.getter(#encoder),
+        returnValue: _FakeConverter_2<String, List<int>>(
+          this,
+          Invocation.getter(#encoder),
+        ),
+        returnValueForMissingStub: _FakeConverter_2<String, List<int>>(
+          this,
+          Invocation.getter(#encoder),
+        ),
+      ) as _i3.Converter<String, List<int>>);
+  @override
+  _i3.Converter<List<int>, String> get decoder => (super.noSuchMethod(
+        Invocation.getter(#decoder),
+        returnValue: _FakeConverter_2<List<int>, String>(
+          this,
+          Invocation.getter(#decoder),
+        ),
+        returnValueForMissingStub: _FakeConverter_2<List<int>, String>(
+          this,
+          Invocation.getter(#decoder),
+        ),
+      ) as _i3.Converter<List<int>, String>);
+  @override
+  String get name => (super.noSuchMethod(
+        Invocation.getter(#name),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  _i3.Codec<List<int>, String> get inverted => (super.noSuchMethod(
+        Invocation.getter(#inverted),
+        returnValue: _FakeCodec_3<List<int>, String>(
+          this,
+          Invocation.getter(#inverted),
+        ),
+        returnValueForMissingStub: _FakeCodec_3<List<int>, String>(
+          this,
+          Invocation.getter(#inverted),
+        ),
+      ) as _i3.Codec<List<int>, String>);
+  @override
+  _i4.Future<String> decodeStream(_i4.Stream<List<int>>? byteStream) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #decodeStream,
+          [byteStream],
+        ),
+        returnValue: _i4.Future<String>.value(''),
+        returnValueForMissingStub: _i4.Future<String>.value(''),
+      ) as _i4.Future<String>);
+  @override
+  List<int> encode(String? input) => (super.noSuchMethod(
+        Invocation.method(
+          #encode,
+          [input],
+        ),
+        returnValue: <int>[],
+        returnValueForMissingStub: <int>[],
+      ) as List<int>);
+  @override
+  String decode(List<int>? encoded) => (super.noSuchMethod(
+        Invocation.method(
+          #decode,
+          [encoded],
+        ),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  _i3.Codec<String, R> fuse<R>(_i3.Codec<List<int>, R>? other) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fuse,
+          [other],
+        ),
+        returnValue: _FakeCodec_3<String, R>(
+          this,
+          Invocation.method(
+            #fuse,
+            [other],
+          ),
+        ),
+        returnValueForMissingStub: _FakeCodec_3<String, R>(
+          this,
+          Invocation.method(
+            #fuse,
+            [other],
+          ),
+        ),
+      ) as _i3.Codec<String, R>);
+}
+
+/// A class which mocks [HTTPHelper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockHTTPHelper extends _i1.Mock implements _i6.HTTPHelper {
   @override
   _i4.Future<dynamic> jsonDecod(String? decodedutf8) => (super.noSuchMethod(
         Invocation.method(
@@ -66,7 +485,7 @@ class MockHTTPHelper extends _i1.Mock implements _i3.HTTPHelper {
         returnValueForMissingStub: _i4.Future<dynamic>.value(),
       ) as _i4.Future<dynamic>);
   @override
-  _i4.Future<_i2.Response> getClientHttp(_i6.HttpRequestParameters? params) =>
+  _i4.Future<_i2.Response> getClientHttp(_i7.HttpRequestParameters? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #getClientHttp,
@@ -89,20 +508,20 @@ class MockHTTPHelper extends _i1.Mock implements _i3.HTTPHelper {
         )),
       ) as _i4.Future<_i2.Response>);
   @override
-  _i4.Future<Uri> getURi(_i6.HttpRequestParameters? params) =>
+  _i4.Future<Uri> getURi(_i7.HttpRequestParameters? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #getURi,
           [params],
         ),
-        returnValue: _i4.Future<Uri>.value(_FakeUri_1(
+        returnValue: _i4.Future<Uri>.value(_FakeUri_4(
           this,
           Invocation.method(
             #getURi,
             [params],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<Uri>.value(_FakeUri_1(
+        returnValueForMissingStub: _i4.Future<Uri>.value(_FakeUri_4(
           this,
           Invocation.method(
             #getURi,

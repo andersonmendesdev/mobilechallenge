@@ -1,10 +1,8 @@
 // ignore_for_file: dead_code
 
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:http/http.dart';
 
-import '../error/exceptions.dart';
 import 'http_request_parameters.dart';
 
 class HTTPHelper {
@@ -15,14 +13,6 @@ class HTTPHelper {
       : _encoding = encoding,
         _httpClient = httpClient;
 
-  Future<String> utfdecode(Uint8List data) async {
-    try {
-      var decodedutf8 = utf8.decode(data);
-      return decodedutf8;
-    } catch (e) {
-      throw DecodedException();
-    }
-  }
 
   Future<dynamic> jsonDecod(String decodedutf8) async {
     var decodedjson = json.decode(decodedutf8);

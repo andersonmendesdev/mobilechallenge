@@ -11,7 +11,35 @@ import 'package:mockito/mockito.dart';
 import '../../../fixfeature/fixture_reader.dart';
 import 'http_helper_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<HTTPHelper>()])
+
+// @GenerateNiceMocks([MockSpec<Client>(), MockSpec<Encoding>(),])
+// void main() {
+//   late HTTPHeader header;
+//   late HTTPHelper httpHelper;
+//   late MockClient httpClient;
+//   late MockEncoding encoding;
+//   late HttpRequestParameters parameter;
+//   setUp((){
+//     header = const HTTPHeader(userAgent: '');
+//     httpClient = MockClient();
+//     encoding = MockEncoding();
+//     httpHelper = HTTPHelper(encoding: encoding, httpClient: httpClient);
+//         parameter = HttpRequestParameters(
+//         uri: 'randomuser.me',
+//         paths: '/api',
+//         header: header.headerGetNoAuth(),
+//         method: HTTPMethodEnum.get);
+//   });
+//
+//   group('HTTP helper', () {
+//     test('shourld return ', () async {
+//       when(httpHelper.getClientHttp(parameter)).thenAnswer((_) async => );
+//     });
+//
+//   });
+//
+// }
+@GenerateNiceMocks([MockSpec<Client>(), MockSpec<Encoding>(),MockSpec<HTTPHelper>()])
 void main() {
   late MockHTTPHelper httpHelper;
   late HTTPHeader header;
@@ -96,12 +124,6 @@ void main() {
       expect(result, equals(bodySuccess));
     });
 
-    // test('should return DecodedException when there is a throw in jsonDecod',
-    //     () async {
-    //   when(httpHelper.utfdecode(bodyString)).thenThrow(DecodedException());
-    //   expect(() async => httpHelper.jsonDecod(bodyString),
-    //       throwsA(TypeMatcher<DecodedException>()));
-    // });
 
     test('should return a url with unencoded query when getUri is called',
         () async {
