@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/enum/enum_filter.dart';
 import '../../widget/button/button_back_modal_sheet.dart';
-import '../../widget/radio/radio_action_widget.dart';
+import '../../widget/button/button_selected_filter_widget.dart';
 import '../../widget/text/_export.dart';
 
 class ModalSheetFilter extends StatefulWidget {
@@ -48,58 +48,60 @@ class _ModalSheetFilterState extends State<ModalSheetFilter> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const ButtonBackModalSheet(),
-          if (widget.type == TypeFilterEnum.gender)
+          if (widget.type == TypeFilterEnum.gender ||
+              widget.type == TypeFilterEnum.all)
             Column(
               children: const [
                 SubTitleResumeWidget(text: 'Gender'),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
               ],
             ),
-          if (widget.type == TypeFilterEnum.gender)
+          if (widget.type == TypeFilterEnum.gender ||
+              widget.type == TypeFilterEnum.all)
             _BuilderFilterGender(
                 filterGender: _filterGender, onChangeFilter: _onChangeFilter),
-          if (widget.type == TypeFilterEnum.nat)
+          const SizedBox(height: 20),
+          if (widget.type == TypeFilterEnum.nat ||
+              widget.type == TypeFilterEnum.all)
             Column(
               children: const [
                 SubTitleResumeWidget(text: 'Nationality'),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
               ],
             ),
-          if (widget.type == TypeFilterEnum.nat)
+          if (widget.type == TypeFilterEnum.nat ||
+              widget.type == TypeFilterEnum.all)
             _BuilderFilterNat(
-                filterGender: _filterNat,
-                onChangeFilter: _onChangeFilterNat,
-                isListViewExpanded: true),
-          if (widget.type == TypeFilterEnum.all)
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.only(bottom: 80),
-                children: [
-                  Column(
-                    children: const [
-                      SubTitleResumeWidget(text: 'Gender'),
-                      SizedBox(height: 20),
-                    ],
-                  ),
-                  _BuilderFilterGender(
-                      filterGender: _filterGender,
-                      onChangeFilter: _onChangeFilter),
-
-                  const Divider(height: 1),
-                  const SizedBox(height: 10),
-                  Column(
-                    children: const [
-                      SubTitleResumeWidget(text: 'Nationality'),
-                      SizedBox(height: 20),
-                    ],
-                  ),
-                  _BuilderFilterNat(
-                      filterGender: _filterNat,
-                      onChangeFilter: _onChangeFilterNat,
-                      isListViewExpanded: false),
-                ],
-              ),
+              filterNat: _filterNat,
+              onChangeFilter: _onChangeFilterNat,
             ),
+          // if (widget.type == TypeFilterEnum.all)
+          //   Column(
+          //     //padding: const EdgeInsets.only(bottom: 80),
+          //     children: [
+          //       Column(
+          //         children: const [
+          //           SubTitleResumeWidget(text: 'Gender'),
+          //           SizedBox(height: 20),
+          //         ],
+          //       ),
+          //       _BuilderFilterGender(
+          //           filterGender: _filterGender,
+          //           onChangeFilter: _onChangeFilter),
+          //       const Divider(height: 1),
+          //       const SizedBox(height: 10),
+          //       Column(
+          //         children: const [
+          //           SubTitleResumeWidget(text: 'Nationality'),
+          //           SizedBox(height: 20),
+          //         ],
+          //       ),
+          //       _BuilderFilterNat(
+          //           filterNat: _filterNat,
+          //           onChangeFilter: _onChangeFilterNat,
+          //           isListViewExpanded: false),
+          //     ],
+          //   ),
           Row(
             children: [
               Expanded(
@@ -152,47 +154,73 @@ class _BuilderFilterGender extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        for (var item in FilterGenderEnum.values)
-          RadioActionWidget<FilterGenderEnum>(
-              title: item.toValueView(),
-              value: filterGender,
-              valueFilter: item,
-              onChange: onChangeFilter),
-      ],
-    );
+    return Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ButtonFilterGenderWidget(
+            icon: Icons.male,
+            label: 'Male',
+            genderValue: FilterGenderEnum.male,
+            currentGender: filterGender,
+            onTap: onChangeFilter,
+          ),
+          ButtonFilterGenderWidget(
+              icon: Icons.female,
+              label: 'Female',
+              genderValue: FilterGenderEnum.female,
+              currentGender: filterGender,
+              onTap: onChangeFilter),
+        ]);
+    // return Column(
+    //   children: <Widget>[
+    //     for (var item in FilterGenderEnum.values)
+    //       RadioActionWidget<FilterGenderEnum>(
+    //           title: item.toValueView(),
+    //           value: filterGender,
+    //           valueFilter: item,
+    //           onChange: onChangeFilter),
+    //   ],
+    // );
   }
 }
 
 class _BuilderFilterNat extends StatelessWidget {
   const _BuilderFilterNat(
-      {Key? key,
-      required this.filterGender,
-      required this.onChangeFilter,
-      required this.isListViewExpanded})
+      {Key? key, required this.filterNat, required this.onChangeFilter})
       : super(key: key);
-  final FilterNatEnum filterGender;
+  final FilterNatEnum filterNat;
   final void Function(FilterNatEnum? value) onChangeFilter;
-  final bool isListViewExpanded;
 
   @override
   Widget build(BuildContext context) {
-    var listWidget = <Widget>[
-      for (var item in FilterNatEnum.values)
-        RadioActionWidget<FilterNatEnum>(
-            title: item.toValueView(),
-            value: filterGender,
-            valueFilter: item,
-            onChange: onChangeFilter),
-    ];
-    if (isListViewExpanded) {
-      return Expanded(
-        child: ListView(
-            padding: const EdgeInsets.only(bottom: 40), children: listWidget),
-      );
-    }
+    var listWidget = List.generate(FilterNatEnum.values.length, (index) {
+      var item = FilterNatEnum.values[index];
+      if(item == FilterNatEnum.none){
+        return Container();
+      }
+      return ButtonFilterNatWidget(
+          icon: item.toValueQuery().isEmpty ? 'NONE' : item.toValueQuery(),
+          label: item.toValueView(),
+          natValue: item,
+          currentNat: filterNat,
+          onTap: onChangeFilter);
+    });
 
-    return Column(children: listWidget);
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Wrap(
+              spacing: 15,
+              runSpacing: 15,
+              alignment: WrapAlignment.center,
+              children: listWidget,
+            ),
+            const SizedBox(height: 80)
+          ],
+        ),
+      ),
+    );
   }
 }
