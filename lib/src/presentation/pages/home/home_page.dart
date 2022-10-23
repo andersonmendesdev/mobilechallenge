@@ -135,6 +135,8 @@ class _HomePageState extends State<HomePage> {
                             child: ListView.builder(
                               controller: scrollController,
                               itemCount: listAllUser.length + 1,
+                              keyboardDismissBehavior:
+                                  ScrollViewKeyboardDismissBehavior.onDrag,
                               itemBuilder: (context, index) {
                                 // index >= 0 &&
                                 //     index <= listAllUser.length - 1
@@ -150,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           );
-                          
+
                     return SwitcherAnimateWidget(
                       child: state.statusGetAll == StatusEnum.loading
                           ? const SchimmerCards()
