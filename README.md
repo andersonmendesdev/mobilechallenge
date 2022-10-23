@@ -54,7 +54,7 @@ obs: Após instalar rode ```pod --version``` se estiver tudo correto irá exibir
 
 **Passo 2:** Com dispositivo conectado ou emulador android aberto execute o comanda ```flutter run```, para verificar uma perfomance de qualidade recomendo o uso de dispositivo físico e executar o projeto em modo profile ``flutter run --profile```.
 
-Obs: Se quiser executar o projeto com ```hot-reload``` ligado é ncessário acessar aba debug do vscode e dar play em vez de executar o comando no console, no android studio também tem um modo deste.
+Obs: Se quiser executar o projeto com ```Hot reload``` ligado é ncessário acessar aba debug do vscode e dar play em vez de executar o comando no console, no android studio também tem um modo deste.
 
 
 ### Rodando o projeto no iOS.
@@ -88,7 +88,7 @@ Pra verificar uma perfomance de qualidade recomendo o uso de dispositivo fisico 
 flutter pub get && flutter run --profile
  ```
 
-Obs: Se quiser executar o projeto com ```hotreload``` ligado é ncessário acessar menu debug no top do android/vscode e dar play, em vez de executar o comando no console, no android studio também tem um modo deste.
+Obs: Se quiser executar o projeto com ```Hot reload``` ligado é ncessário acessar menu debug no top do android/vscode e dar play, em vez de executar o comando no console, no android studio também tem um modo deste.
 
 
 ## Estrutura
