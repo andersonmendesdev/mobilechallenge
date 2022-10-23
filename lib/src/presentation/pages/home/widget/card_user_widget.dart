@@ -51,7 +51,17 @@ class CardUserWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      Text(
+                        userEntity.location.country,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(
+                            fontSize: 15,
+                            color: Colors.black.withOpacity(0.6),
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(height: 6),
                       Padding(
                         padding: const EdgeInsets.only(right: 15.0),
                         child: Row(
@@ -65,7 +75,7 @@ class CardUserWidget extends StatelessWidget {
                                   .copyWith(
                                       fontSize: 15,
                                       color: Colors.black.withOpacity(0.6),
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.w600),
                             ),
                             Text(
                               userEntity.birthDay,
@@ -75,7 +85,7 @@ class CardUserWidget extends StatelessWidget {
                                   .copyWith(
                                       fontSize: 15,
                                       color: Colors.black.withOpacity(0.6),
-                                      fontWeight: FontWeight.w600),
+                                      fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
