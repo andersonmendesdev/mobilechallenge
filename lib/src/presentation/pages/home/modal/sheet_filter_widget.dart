@@ -75,33 +75,6 @@ class _ModalSheetFilterState extends State<ModalSheetFilter> {
               filterNat: _filterNat,
               onChangeFilter: _onChangeFilterNat,
             ),
-          // if (widget.type == TypeFilterEnum.all)
-          //   Column(
-          //     //padding: const EdgeInsets.only(bottom: 80),
-          //     children: [
-          //       Column(
-          //         children: const [
-          //           SubTitleResumeWidget(text: 'Gender'),
-          //           SizedBox(height: 20),
-          //         ],
-          //       ),
-          //       _BuilderFilterGender(
-          //           filterGender: _filterGender,
-          //           onChangeFilter: _onChangeFilter),
-          //       const Divider(height: 1),
-          //       const SizedBox(height: 10),
-          //       Column(
-          //         children: const [
-          //           SubTitleResumeWidget(text: 'Nationality'),
-          //           SizedBox(height: 20),
-          //         ],
-          //       ),
-          //       _BuilderFilterNat(
-          //           filterNat: _filterNat,
-          //           onChangeFilter: _onChangeFilterNat,
-          //           isListViewExpanded: false),
-          //     ],
-          //   ),
           Row(
             children: [
               Expanded(
@@ -217,7 +190,7 @@ class _BuilderFilterNat extends StatelessWidget {
               alignment: WrapAlignment.center,
               children: listWidget,
             ),
-            const SizedBox(height: 80)
+            //const SizedBox(height: 80)
           ],
         ),
       ),
