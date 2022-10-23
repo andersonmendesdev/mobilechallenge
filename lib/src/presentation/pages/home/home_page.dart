@@ -11,10 +11,10 @@ import '../widget/empty/empty_state_widget.dart';
 import '../widget/loading/schimmer_card_list.dart';
 import '../widget/switcher/switcher_animete_widget.dart';
 import 'modal/sheet_filter_widget.dart';
+import 'modal/sheet_profile_widget.dart';
 import 'widget/card_user_widget.dart';
 import 'widget/header_filter_widget.dart';
 import 'widget/loading_more_widget.dart';
-import 'modal/sheet_profile_widget.dart';
 import 'widget/search_field_widget.dart';
 import 'widget/title_home_widget.dart';
 
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           );
-
+                          
                     return SwitcherAnimateWidget(
                       child: state.statusGetAll == StatusEnum.loading
                           ? const SchimmerCards()
@@ -167,6 +167,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   ///rules for pagination, if there is active search,
   ///it does not allow pagination, if it already hears
   ///a search in progress, it also does not allow pagination.

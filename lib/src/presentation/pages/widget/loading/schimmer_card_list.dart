@@ -68,7 +68,20 @@ class _CardDefault extends StatelessWidget {
                                     fontSize: 17, fontWeight: FontWeight.w700),
                             softWrap: true),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 2),
+                      _Container(
+                        child: Text(
+                          'userEntity',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: 15,
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
                       Padding(
                         padding: const EdgeInsets.only(right: 15.0),
                         child: Row(
