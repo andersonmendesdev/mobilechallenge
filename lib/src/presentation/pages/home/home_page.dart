@@ -10,11 +10,11 @@ import '../../route/sheet/custom_modal_sheet.dart';
 import '../widget/empty/empty_state_widget.dart';
 import '../widget/loading/schimmer_card_list.dart';
 import '../widget/switcher/switcher_animete_widget.dart';
-import 'modal/modal_sheet_filter.dart';
+import 'modal/sheet_filter_widget.dart';
 import 'widget/card_user_widget.dart';
 import 'widget/header_filter_widget.dart';
 import 'widget/loading_more_widget.dart';
-import 'widget/profile_user_widget.dart';
+import 'modal/sheet_profile_widget.dart';
 import 'widget/search_field_widget.dart';
 import 'widget/title_home_widget.dart';
 

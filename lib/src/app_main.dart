@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
         routes: routes.getRoutes(),
         onGenerateRoute: routes.generateRoutes,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: ColorPalette.color003461,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           scaffoldBackgroundColor: ColorPalette.colorWhitSmoke,
           iconTheme:
               const IconThemeData(color: Colors.grey, size: 20, opacity: 1),
-          inputDecorationTheme: InputDecorationThemeCustom.theme(Colors.blue),
+          inputDecorationTheme: InputDecorationThemeCustom.theme(ColorPalette.color003461),
         ),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

@@ -40,7 +40,7 @@ class AvatarUserWidget extends StatelessWidget {
         child: ClipOval(
           child: CachedNetworkImage(
             imageUrl: uri,
-            filterQuality: FilterQuality.medium,
+            filterQuality: FilterQuality.high,
             placeholder: (context, url) => Shimmer.fromColors(
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,

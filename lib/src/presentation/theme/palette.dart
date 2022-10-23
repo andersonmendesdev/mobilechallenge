@@ -9,20 +9,11 @@ class ColorPalette {
   static MaterialColor colorF26522 = generateMaterialColor(const Color(0xffF26522));
   static MaterialColor colorFCAF17 = generateMaterialColor(const Color(0xffFCAF17));
 
-
-
-  static Color grey8c8c8c = const Color(0xff8c8c8c);
-  static Color green22BAA0OPACITY05 = const Color.fromRGBO(34, 186, 160, 0.5);
-  static MaterialColor green22BAA0 =
-      generateMaterialColor(const Color(0xff22baa0));
-  static MaterialColor redf56B4D =
-      generateMaterialColor(const Color(0xfff56b4d));
   static const Color whiteBackground = Color(0xffFFFFFF);
   static MaterialColor grayBorderMaterial =
       generateMaterialColor(const Color(0xffE0E2E7));
   static const Color grayHint = Color(0xffC7C9D9);
   static Color colorWhitSmoke = const Color(0xfff5f5f5);
-  static Color redf56B4DOPACITY05 = const Color.fromRGBO(245, 107, 77, 0.5);
   static const Color black33333F = Color(0xff33333F);
 }
 
