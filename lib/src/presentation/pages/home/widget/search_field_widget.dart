@@ -27,7 +27,7 @@ class SearchFieldWidget extends StatelessWidget {
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          hintText: 'Buscar usuário',
+          hintText: 'Search user',
           prefixIcon: const Icon(Icons.search),
           suffixIcon: controller.text.isNotEmpty
               ? IconButton(
