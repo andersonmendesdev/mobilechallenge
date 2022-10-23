@@ -46,19 +46,18 @@ obs: Após instalar rode ```pod --version``` se estiver tudo correto irá exibir
 
 **Passo 6:** Se estiver usando android studio necessário instalar plugins Flutter e Dart. Se estiver usando vscode como editor de texto, então é necessário instalar a externsao [Flutter](https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter) e [Dart](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code),
 
-**Passo 7:** Execute ```flutter doctor``` e veja se a mensagem em vemelhor, isso indica o que ainda falta ser feito, o próprio console te diz o que deve ser feito, basta seguir.
+**Passo 7:** Execute ```flutter doctor``` e veja se ha mensagens em vermelho, isso indica o que ainda falta a ser feito, o próprio console te diz o que deve ser feito, basta seguir.
 
 ### Rodando o projeto no Android.
 
-**Passo 1:** Crie um emulador no adv do android studio ou adicione um dispositivo físico ao mac/windows, para que o dispositivo seja reconhecido é necessário deixa-lo em modo desenvolvimento, consulte a doc  de seu dispositivo android, no iphone basta que seja compatível com o a versão do xcode.
+**Passo 1:** Crie um emulador no avd do android studio ou adicione um dispositivo físico ao mac/windows, para que o dispositivo seja reconhecido é necessário deixa-lo em modo desenvolvimento (android), consulte a doc  de seu dispositivo, no iphone basta que seja compatível com o a versão do xcode.
 
-**Passo 2:** Com dispositivo conectado ou emulador android aberto execute o comanda ```flutter run```, para verificar uma perfomance de qualidade recomendo o uso de dispositivo fisico e executar o projeto em modo profile ``flutter run --profile```.
+**Passo 2:** Com dispositivo conectado ou emulador android aberto execute o comanda ```flutter run```, para verificar uma perfomance de qualidade recomendo o uso de dispositivo físico e executar o projeto em modo profile ``flutter run --profile```.
 
-Obs: Se quiser executar o projeto com ```hotreload``` ligado é ncessário acessar aba debug do vscode e dar play em vez de executar o comando no console, no android studio também tem um modo deste.
+Obs: Se quiser executar o projeto com ```hot-reload``` ligado é ncessário acessar aba debug do vscode e dar play em vez de executar o comando no console, no android studio também tem um modo deste.
 
 
 ### Rodando o projeto no iOS.
-#### Necessário conhecimentos básicos de uso do xcode
 
 **Passo 0:** Abra um simulador do iOS  digitando o comando no console ```open -a Simulator```, feito isso execute no console com o folder do projeto como raiz do console.
 ```
@@ -74,7 +73,7 @@ flutter pub get && flutter run --profile
 
 **Passo 1:** Abra o arquivo ```Runner.xcwordspace``` que fica em ```mobilechallenge/ios```.
 
-**Passo 2:** Com projeto aberto e o menu folder selecionado no lado esquerdo do xcode clique em ```Runner``` no lado esquerdo do xcode e então ele irá exibir as abas do lado direito.
+**Passo 2:** Com projeto aberto e o menu folder selecionado no lado esquerdo do xcode, clique em ```Runner``` no lado esquerdo do xcode e então ele irá exibir as abas do lado direito.
 
 **Passo 4:** Selecione ```Signing e Capabilities``` e verifique se ```Automatically manage signing``` está selecionado, se não estiver selecione, o menu Team deve ficar com ```Personal team``` selecionado, feito isso o xcode irá provisionar um profile developer automaticamente.
 
