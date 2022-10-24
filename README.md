@@ -52,7 +52,7 @@ obs: Após instalar rode ```pod --version``` se estiver tudo correto irá exibir
 
 **Passo 1:** Crie um emulador no avd do android studio ou adicione um dispositivo físico ao mac/windows, para que o dispositivo seja reconhecido é necessário deixa-lo em modo desenvolvimento (android), consulte a doc  de seu dispositivo, no iphone basta que seja compatível com o a versão do xcode.
 
-**Passo 2:** Com dispositivo conectado ou emulador android aberto execute o comanda ```flutter run```, para verificar uma perfomance de qualidade recomendo o uso de dispositivo físico e executar o projeto em modo profile ``flutter run --profile```.
+**Passo 2:** Com dispositivo conectado ou emulador android aberto execute o comanda ```flutter run```, para verificar uma perfomance de qualidade recomendo o uso de dispositivo físico e executar o projeto em modo profile ```flutter run --profile```.
 
 Obs: Se quiser executar o projeto com ```Hot reload``` ligado é ncessário acessar aba debug do vscode e dar play em vez de executar o comando no console, no android studio também tem um modo deste.
 
