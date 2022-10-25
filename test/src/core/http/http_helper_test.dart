@@ -28,18 +28,14 @@ void main() {
   late HttpRequestParameters parameterQuery;
   late HttpRequestParameters parameterQueryEncode;
   late String bodyString;
-  late dynamic bodyJson;
-  late Uri uriResult;
   late Uri uriResultQuery;
   late Uri uriResultQueryEncode;
   late Response responseSuccess;
-  late Response responseError;
   setUp(() {
     header = const HTTPHeader(userAgent: '');
     httpClient = MockClient();
     encoding = MockEncoding();
     bodyString = fixture('user_body.txt');
-    bodyJson = json.decode(fixture('user_results.json'));
     uri = Uri.https('randomuser.me', '/api');
 
     parameterMultipart = HttpRequestParameters(
@@ -47,14 +43,14 @@ void main() {
         paths: '/api',
         header: header.headerGetNoAuth(),
         method: HTTPMethodEnum.multipart,
-        body: <String, String>{});
+        body: const <String, String>{});
 
     parameterPost = parameterDelete = HttpRequestParameters(
         uri: 'randomuser.me',
         paths: '/api',
         header: header.headerGetNoAuth(),
         method: HTTPMethodEnum.post,
-        body: <String, String>{});
+        body: const <String, String>{});
     parameterDelete = HttpRequestParameters(
         uri: 'randomuser.me',
         paths: '/api',
@@ -68,8 +64,6 @@ void main() {
         paths: '/api',
         header: header.headerGetNoAuth(),
         method: HTTPMethodEnum.get);
-
-    uriResult = Uri.https('randomuser.me', '/api');
 
     parameterQuery = HttpRequestParameters(
         uri: 'randomuser.me',
@@ -91,7 +85,6 @@ void main() {
     uriResultQueryEncode = Uri.parse(Uri.decodeFull(uriResultQuery.toString()));
 
     responseSuccess = Response(fixture('user_body.txt'), 200);
-    responseError = Response(fixture('user_body_error.txt'), 200);
   });
 
   group('HTTP helper', () {

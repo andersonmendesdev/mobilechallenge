@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/library/shimmer.dart';
+import '../../library/shimmer.dart';
 
 enum TypeSchimmerCard { expense, none }
 

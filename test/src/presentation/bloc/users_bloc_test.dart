@@ -22,6 +22,7 @@ void main() {
   const apiVersion = '1.4';
   late List<UserEntity> mockingList;
   late List<UserEntity> mockingListAuxi;
+  late List<UserEntity> mockingListSearch;
   late UsersState userState;
 
   late ResponseSuccess<List<UserEntity>> responseSucess;
@@ -51,8 +52,70 @@ void main() {
               state: 'Wyoming',
               country: 'United States',
               postcode: 59221)),
+      UserEntity(
+          id: UserId(name: 'SSN', value: '113-42-0860'),
+          gender: 'male',
+          email: 'beverley.pierce@example.com',
+          phone: '(270) 300-6062',
+          name: UserName(title: 'Mrs', first: 'Maicon', last: 'Sierra'),
+          dob: UserDob(date: DateTime(1988, 2, 2), age: 40),
+          picture: UserPicture(
+              large: 'https://randomuser.me/api/portraits/women/93.jpg',
+              medium: 'https://randomuser.me/api/portraits/med/women/93.jpg',
+              thumbnail:
+                  'https://randomuser.me/api/portraits/thumb/women/93.jpg'),
+          nat: 'US',
+          location: UserLocation(
+              address: 'N Stelling Rd',
+              number: 9102,
+              city: 'Irvine',
+              state: 'Wyoming',
+              country: 'United States',
+              postcode: 59221)),
     ];
     mockingListAuxi = <UserEntity>[
+      UserEntity(
+          id: UserId(name: 'SSN', value: '113-42-0860'),
+          gender: 'female',
+          email: 'beverley.pierce@example.com',
+          phone: '(270) 300-6062',
+          name: UserName(title: 'Mrs', first: 'Beverley', last: 'Pierce'),
+          dob: UserDob(date: DateTime(1988, 2, 2), age: 40),
+          picture: UserPicture(
+              large: 'https://randomuser.me/api/portraits/women/93.jpg',
+              medium: 'https://randomuser.me/api/portraits/med/women/93.jpg',
+              thumbnail:
+                  'https://randomuser.me/api/portraits/thumb/women/93.jpg'),
+          nat: 'US',
+          location: UserLocation(
+              address: 'N Stelling Rd',
+              number: 9102,
+              city: 'Irvine',
+              state: 'Wyoming',
+              country: 'United States',
+              postcode: 59221)),
+      UserEntity(
+          id: UserId(name: 'SSN', value: '113-42-0860'),
+          gender: 'male',
+          email: 'beverley.pierce@example.com',
+          phone: '(270) 300-6062',
+          name: UserName(title: 'Mrs', first: 'Maicon', last: 'Sierra'),
+          dob: UserDob(date: DateTime(1988, 2, 2), age: 40),
+          picture: UserPicture(
+              large: 'https://randomuser.me/api/portraits/women/93.jpg',
+              medium: 'https://randomuser.me/api/portraits/med/women/93.jpg',
+              thumbnail:
+                  'https://randomuser.me/api/portraits/thumb/women/93.jpg'),
+          nat: 'US',
+          location: UserLocation(
+              address: 'N Stelling Rd',
+              number: 9102,
+              city: 'Irvine',
+              state: 'Wyoming',
+              country: 'United States',
+              postcode: 59221)),
+    ];
+    mockingListSearch = <UserEntity>[
       UserEntity(
           id: UserId(name: 'SSN', value: '113-42-0860'),
           gender: 'female',
@@ -214,18 +277,19 @@ void main() {
       usersBloc
         ..add(GetAllUserEvent(filterNat: FilterNatEnum.BR))
         ..add(SearchUserEvent(query: 'Beverley'));
-      expect(usersBloc.stream, emitsInOrder([
-        userState.copyWith(
-          statusGetAll: StatusEnum.loading,
-          filterNat: FilterNatEnum.BR,
-        ),
-        userState.copyWith(
-            statusGetAll: StatusEnum.initial,
-            listAllUser: mockingList,
-            filterNat: FilterNatEnum.BR,
-            listAllUserSearch: mockingListAuxi),
-
-      ]));
+      expect(
+          usersBloc.stream,
+          emitsInOrder([
+            userState.copyWith(
+              statusGetAll: StatusEnum.loading,
+              filterNat: FilterNatEnum.BR,
+            ),
+            userState.copyWith(
+                statusGetAll: StatusEnum.initial,
+                listAllUser: mockingList,
+                filterNat: FilterNatEnum.BR,
+                listAllUserSearch: mockingListAuxi),
+          ]));
     });
 
     test('should return previous list when clearing search', () async {
@@ -234,18 +298,75 @@ void main() {
       usersBloc
         ..add(GetAllUserEvent(filterNat: FilterNatEnum.BR))
         ..add(SearchUserClearEvent());
-      expect(usersBloc.stream, emitsInOrder([
-        userState.copyWith(
-          statusGetAll: StatusEnum.loading,
-          filterNat: FilterNatEnum.BR,
-        ),
-        userState.copyWith(
-            statusGetAll: StatusEnum.initial,
-            listAllUser: mockingList,
-            filterNat: FilterNatEnum.BR,
-            listAllUserSearch: mockingListAuxi),
+      expect(
+          usersBloc.stream,
+          emitsInOrder([
+            userState.copyWith(
+              statusGetAll: StatusEnum.loading,
+              filterNat: FilterNatEnum.BR,
+            ),
+            userState.copyWith(
+                statusGetAll: StatusEnum.initial,
+                listAllUser: mockingList,
+                filterNat: FilterNatEnum.BR,
+                listAllUserSearch: mockingListAuxi),
+          ]));
+    });
 
-      ]));
+    test('should return pagination', () async {
+      when(getAllUsersUsecase(any)).thenAnswer((_) async => responseSucess);
+      //act
+      usersBloc
+        ..add(GetAllUserEvent(filterNat: FilterNatEnum.BR, filterGender: FilterGenderEnum.male))
+        ..add(GetAllUserPaginationEvent());
+      expect(
+          usersBloc.stream,
+          emitsInOrder([
+            userState.copyWith(
+              statusGetAll: StatusEnum.loading,
+              filterNat: FilterNatEnum.BR,
+              filterGender: FilterGenderEnum.male,
+            ),
+            userState.copyWith(
+                statusGetAll: StatusEnum.initial,
+                listAllUser: mockingList,
+                filterNat: FilterNatEnum.BR,
+                filterGender: FilterGenderEnum.male,
+                listAllUserSearch: mockingListAuxi),
+            userState.copyWith(
+                statusGetAll: StatusEnum.initial,
+                listAllUser: mockingList,
+                statusPaginate: StatusEnum.loading,
+                filterNat: FilterNatEnum.BR,
+                filterGender: FilterGenderEnum.male,
+                listAllUserSearch: mockingListAuxi),
+            userState.copyWith(
+              statusGetAll: StatusEnum.initial,
+              statusPaginate: StatusEnum.initial,
+              listAllUser: <UserEntity>[...mockingList, ...mockingList],
+              filterNat: FilterNatEnum.BR,
+              filterGender: FilterGenderEnum.male,
+              listAllUserSearch: <UserEntity>[...mockingList, ...mockingList],
+              page: 2,
+            ),
+          ]));
+    });
+
+    test('should return pagination failure', () async {
+      when(getAllUsersUsecase(any)).thenAnswer((_) async => responseFailure);
+      //act
+      usersBloc.add(GetAllUserPaginationEvent());
+      expect(
+          usersBloc.stream,
+          emitsInOrder([
+            userState.copyWith(
+              statusPaginate: StatusEnum.loading,
+            ),
+            userState.copyWith(
+              statusPaginate: StatusEnum.failure,
+              errorMessage: responseFailure.errorMessage
+            ),
+          ]));
     });
   });
 }

@@ -31,7 +31,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     const primaryColor = Colors.white;
-    print(defaultTargetPlatform);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

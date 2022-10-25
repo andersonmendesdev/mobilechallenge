@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
 
 import '../../../../core/export.dart';
+import '../../library/shimmer.dart';
 
 class AvatarUserWidget extends StatelessWidget {
   final String uri;
