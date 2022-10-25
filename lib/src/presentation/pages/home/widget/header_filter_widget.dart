@@ -170,7 +170,6 @@ class _ButtonFilterWidget extends StatelessWidget {
   }
 }
 
-
 class BagdeWidget extends StatelessWidget {
   const BagdeWidget({Key? key, required this.total}) : super(key: key);
 

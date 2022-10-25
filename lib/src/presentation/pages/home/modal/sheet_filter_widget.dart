@@ -135,9 +135,9 @@ class _BuilderFilterGender extends StatelessWidget {
             label: 'Male',
             value: FilterGenderEnum.male,
             groupValue: filterGender,
-            onTap: (value) => onChangeFilter(value ?? FilterGenderEnum.none),
+            onTap:onChangeFilter,
           ),
-          ButtonFilterWidget(
+          ButtonFilterWidget<FilterGenderEnum>(
               icon: Icons.female,
               label: 'Female',
               value: FilterGenderEnum.female,

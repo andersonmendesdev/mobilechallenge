@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../../../../core/export.dart';
 
@@ -38,24 +39,29 @@ class AvatarUserWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(2),
         child: ClipOval(
-          child: CachedNetworkImage(
-            imageUrl: uri,
-            filterQuality: FilterQuality.high,
-            placeholder: (context, url) => Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              period: const Duration(milliseconds: 700),
-              child: Container(
-                color: Colors.white,
-              ),
-            ),
-            errorWidget: (context, url, error) => Image(
-              image: const AssetImage(avatarPerson),
-              width: size,
-              height: size,
-              filterQuality: FilterQuality.medium,
-            ),
-          ),
+          child: kIsWeb
+              ? Image.network(
+                  uri,
+                  filterQuality: FilterQuality.high,
+                )
+              : CachedNetworkImage(
+                  imageUrl: uri,
+                  filterQuality: FilterQuality.high,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    period: const Duration(milliseconds: 700),
+                    child: Container(
+                      color: Colors.white,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Image(
+                    image: const AssetImage(avatarPerson),
+                    width: size,
+                    height: size,
+                    filterQuality: FilterQuality.medium,
+                  ),
+                ),
         ),
       ),
     );
