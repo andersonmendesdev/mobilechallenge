@@ -14,17 +14,9 @@ class ResponseFailure<T> extends ResponseData<T> {
   ResponseFailure(String errorMessage) : super(errorMessage: errorMessage);
 }
 
-class ResponseCanceled<T> extends ResponseData<T> {
-  ResponseCanceled() : super();
-}
+// class RemoteData<T> {
+//   final T data;
+//   final int total;
 
-class ResponseExpired<T> extends ResponseData<T> {
-  ResponseExpired() : super(errorMessage: 'Sua sessão expirou!');
-}
-
-class RemoteData<T> {
-  final T data;
-  final int total;
-
-  RemoteData({required this.data, required this.total});
-}
+//   RemoteData({required this.data, required this.total});
+// }

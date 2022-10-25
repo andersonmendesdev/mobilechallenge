@@ -11,54 +11,57 @@ import 'package:mockito/mockito.dart';
 import '../../../fixfeature/fixture_reader.dart';
 import 'http_helper_test.mocks.dart';
 
-
-// @GenerateNiceMocks([MockSpec<Client>(), MockSpec<Encoding>(),])
-// void main() {
-//   late HTTPHeader header;
-//   late HTTPHelper httpHelper;
-//   late MockClient httpClient;
-//   late MockEncoding encoding;
-//   late HttpRequestParameters parameter;
-//   setUp((){
-//     header = const HTTPHeader(userAgent: '');
-//     httpClient = MockClient();
-//     encoding = MockEncoding();
-//     httpHelper = HTTPHelper(encoding: encoding, httpClient: httpClient);
-//         parameter = HttpRequestParameters(
-//         uri: 'randomuser.me',
-//         paths: '/api',
-//         header: header.headerGetNoAuth(),
-//         method: HTTPMethodEnum.get);
-//   });
-//
-//   group('HTTP helper', () {
-//     test('shourld return ', () async {
-//       when(httpHelper.getClientHttp(parameter)).thenAnswer((_) async => );
-//     });
-//
-//   });
-//
-// }
-@GenerateNiceMocks([MockSpec<Client>(), MockSpec<Encoding>(),MockSpec<HTTPHelper>()])
+@GenerateNiceMocks([
+  MockSpec<Client>(),
+  MockSpec<Encoding>(),
+])
 void main() {
-  late MockHTTPHelper httpHelper;
+  late Uri uri;
   late HTTPHeader header;
+  late HTTPHelper httpHelper;
+  late MockClient httpClient;
+  late MockEncoding encoding;
+  late HttpRequestParameters parameterMultipart;
   late HttpRequestParameters parameter;
+  late HttpRequestParameters parameterPost;
+  late HttpRequestParameters parameterDelete;
   late HttpRequestParameters parameterQuery;
   late HttpRequestParameters parameterQueryEncode;
-  late Response responseSuccess;
-  late Response responseError;
-
-  late Map bodySuccess;
   late String bodyString;
-
+  late dynamic bodyJson;
   late Uri uriResult;
   late Uri uriResultQuery;
   late Uri uriResultQueryEncode;
-
+  late Response responseSuccess;
+  late Response responseError;
   setUp(() {
-    httpHelper = MockHTTPHelper();
     header = const HTTPHeader(userAgent: '');
+    httpClient = MockClient();
+    encoding = MockEncoding();
+    bodyString = fixture('user_body.txt');
+    bodyJson = json.decode(fixture('user_results.json'));
+    uri = Uri.https('randomuser.me', '/api');
+
+    parameterMultipart = HttpRequestParameters(
+        uri: 'randomuser.me',
+        paths: '/api',
+        header: header.headerGetNoAuth(),
+        method: HTTPMethodEnum.multipart,
+        body: <String, String>{});
+
+    parameterPost = parameterDelete = HttpRequestParameters(
+        uri: 'randomuser.me',
+        paths: '/api',
+        header: header.headerGetNoAuth(),
+        method: HTTPMethodEnum.post,
+        body: <String, String>{});
+    parameterDelete = HttpRequestParameters(
+        uri: 'randomuser.me',
+        paths: '/api',
+        header: header.headerGetNoAuth(),
+        method: HTTPMethodEnum.delete);
+
+    httpHelper = HTTPHelper(encoding: encoding, httpClient: httpClient);
 
     parameter = HttpRequestParameters(
         uri: 'randomuser.me',
@@ -87,71 +90,59 @@ void main() {
     );
     uriResultQueryEncode = Uri.parse(Uri.decodeFull(uriResultQuery.toString()));
 
-    bodyString = fixture('user_body.txt');
-    bodySuccess = json.decode(fixture('user_results.json'));
-    responseSuccess = Response(bodyString, 200);
+    responseSuccess = Response(fixture('user_body.txt'), 200);
     responseError = Response(fixture('user_body_error.txt'), 200);
   });
 
-  group('HTTPHelper', () {
-    test('should return a response success when getClientHttp is called',
-        () async {
-      when(httpHelper.getClientHttp(parameter))
-          .thenAnswer((_) async => responseSuccess);
-      var result = await httpHelper.getClientHttp(parameter);
-      expect(result, responseSuccess);
-    });
-
-    test('should return a response 200 when getClientHttp is called', () async {
-      when(httpHelper.getClientHttp(parameter))
-          .thenAnswer((_) async => responseSuccess);
-      var result = await httpHelper.getClientHttp(parameter);
-      expect(result.statusCode, 200);
-    });
-
-    test('should return a response failure when getClientHttp is called',
-        () async {
-      when(httpHelper.getClientHttp(parameter))
-          .thenAnswer((_) async => responseError);
-      var result = await httpHelper.getClientHttp(parameter);
-      expect(result, equals(responseError));
-    });
-
-    test('should return a Map when jsonDecod is called', () async {
-      when(httpHelper.jsonDecod(bodyString))
-          .thenAnswer((_) async => bodySuccess);
+  group('HTTP helper', () {
+    test('should return dynamic type when calling jsonDecod', () async {
       var result = await httpHelper.jsonDecod(bodyString);
-      expect(result, equals(bodySuccess));
+      expect(result, TypeMatcher<dynamic>());
     });
 
-
-    test('should return a url with unencoded query when getUri is called',
-        () async {
-      when(httpHelper.getURi(parameterQueryEncode))
-          .thenAnswer((_) async => uriResultQueryEncode);
-      var result = await httpHelper.getURi(parameterQueryEncode);
-      expect(result, equals(uriResultQueryEncode));
-    });
-
-    test('should return a url when getUri is called', () async {
-      when(httpHelper.getURi(parameter)).thenAnswer((_) async => uriResult);
+    test('should return uri when calling getUri', () async {
       var result = await httpHelper.getURi(parameter);
-      expect(result, equals(uriResult));
+      expect(result, equals(uri));
     });
 
-    test('should return a url with query when getUri is called', () async {
-      when(httpHelper.getURi(parameterQuery))
-          .thenAnswer((_) async => uriResultQuery);
+    test('should return uri when calling getUri params is notEmpty', () async {
       var result = await httpHelper.getURi(parameterQuery);
       expect(result, equals(uriResultQuery));
     });
 
-    test('should return a url with unencoded query when getUri is called',
+    test(
+        'should return uri when calling getUri params is notEmpty and isencode false',
         () async {
-      when(httpHelper.getURi(parameterQueryEncode))
-          .thenAnswer((_) async => uriResultQueryEncode);
       var result = await httpHelper.getURi(parameterQueryEncode);
       expect(result, equals(uriResultQueryEncode));
     });
+
+    test('should return response when calling getClientHttp get', () async {
+      when(httpClient.get(uri)).thenAnswer((_) async => responseSuccess);
+      var result = await httpHelper.getClientHttp(parameter);
+      expect(result, TypeMatcher<Response>());
+    });
+    test('should return response when calling getClientHttp post', () async {
+      when(httpClient.post(uri,
+              body: <String, String>{},
+              encoding: encoding,
+              headers: header.headerGetNoAuth()))
+          .thenAnswer((_) async => responseSuccess);
+      var result = await httpHelper.getClientHttp(parameterPost);
+      expect(result, TypeMatcher<Response>());
+    });
+    test('should return response when calling getClientHttp delete', () async {
+      when(httpClient.delete(uri, headers: header.headerGetNoAuth()))
+          .thenAnswer((_) async => responseSuccess);
+      var result = await httpHelper.getClientHttp(parameterDelete);
+      expect(result, TypeMatcher<Response>());
+    });
+    test('should return response when calling getClientHttp get', () async {
+      when(httpClient.post(uri, headers: header.headerGetNoAuth()))
+          .thenAnswer((_) async => responseSuccess);
+      var result = await httpHelper.getClientHttp(parameterMultipart);
+      expect(result, TypeMatcher<Response>());
+    });
+
   });
 }
