@@ -123,14 +123,13 @@ Obs: Se quiser executar o projeto com ```Hot reload``` ligado é ncessário aces
         ├── route
         └── theme
 ```
-## App image
+## Image
 <p align="center">
   <img src="assets/app/app1.png" width="200" title="hover text">
   <img src="assets/app/app5.png" width="200" title="hover text">
   <img src="assets/app/app2.png" width="200" title="hover text">
   <img src="assets/app/app3.png" width="200" title="hover text">
   <img src="assets/app/app4.png" width="200" title="hover text">
-  
 </p>
 
 
