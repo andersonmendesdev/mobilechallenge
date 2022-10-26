@@ -99,6 +99,7 @@ Obs: Se quiser executar o projeto com ```Hot reload``` ligado é ncessário aces
 └── src
     ├── app_main.dart
     ├── bloc_observer.dart
+    ├── locator.dart
     ├── core
     │   ├── certificate
     │   ├── enum
@@ -116,7 +117,6 @@ Obs: Se quiser executar o projeto com ```Hot reload``` ligado é ncessário aces
     │   ├── entities
     │   ├── repositories
     │   └── usecases
-    ├── locator.dart
     └── presentation
         ├── bloc
         ├── pages
