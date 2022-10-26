@@ -23,18 +23,21 @@ class HeaderFilterWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.only(left: 15),
         children: [
-          _ButtonAllFilter(
+          ButtonAllFilter(
+              key: Key(TypeFilterEnum.all.toString()),
               onTap: () => onTouch(TypeFilterEnum.all),
               filterNat: filterNat,
               filterGender: filterGender,
               label: 'Filter'),
-          _ButtonFilterWidget(
+          ButtonFilterWidget(
+            key: Key(TypeFilterEnum.gender.toString()),
               onTap: () => onTouch(TypeFilterEnum.gender),
               isSelected: filterGender != FilterGenderEnum.none,
               label: filterGender != FilterGenderEnum.none
                   ? filterGender.toValueView()
                   : 'Gender'),
-          _ButtonFilterWidget(
+          ButtonFilterWidget(
+              key: Key(TypeFilterEnum.nat.toString()),
               onTap: () => onTouch(TypeFilterEnum.nat),
               isSelected: filterNat != FilterNatEnum.none,
               label: filterNat != FilterNatEnum.none
@@ -46,8 +49,8 @@ class HeaderFilterWidget extends StatelessWidget {
   }
 }
 
-class _ButtonAllFilter extends StatelessWidget {
-  const _ButtonAllFilter({
+class ButtonAllFilter extends StatelessWidget {
+  const ButtonAllFilter({
     Key? key,
     required this.onTap,
     required this.label,
@@ -114,8 +117,8 @@ class _ButtonAllFilter extends StatelessWidget {
   }
 }
 
-class _ButtonFilterWidget extends StatelessWidget {
-  const _ButtonFilterWidget({
+class ButtonFilterWidget extends StatelessWidget {
+  const ButtonFilterWidget({
     Key? key,
     required this.onTap,
     required this.label,

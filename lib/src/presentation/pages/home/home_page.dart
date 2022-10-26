@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
       title: 'Ops, não há usuarios',
     );
     final pageError = EmptyStateWidget(
+      key: const Key('pageErrorEmptyStateWidget'),
       title: 'Ops, dados não encontrados',
       subTitle:
           'Parece que tivemos um problema ao carregar os usuarios, tente novamente.',
@@ -87,18 +88,18 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
         ),
       ),
-      body: BlocBuilder<UsersBloc, UsersState>(
-        bloc: _usersBloc,
-        builder: (context, state) {
-          return Column(
-            children: [
-              const TitleHomeWidget(),
-              SearchFieldWidget(
-                  controller: controller,
-                  focusNode: focusNode,
-                  onSubmitted: _onSubmitted,
-                  onClear: _onClear),
-              HeaderFilterWidget(
+      body: Column(
+        children: [
+          const TitleHomeWidget(),
+          SearchFieldWidget(
+              controller: controller,
+              focusNode: focusNode,
+              onSubmitted: _onSubmitted,
+              onClear: _onClear),
+          BlocBuilder<UsersBloc, UsersState>(
+            bloc: _usersBloc,
+            builder: (context, state) {
+              return HeaderFilterWidget(
                 filterGender: state.filterGender,
                 filterNat: state.filterNat,
                 onTouch: (type) {
@@ -114,59 +115,59 @@ class _HomePageState extends State<HomePage> {
                     type: type,
                   );
                 },
-              ),
-              Expanded(
-                child: BlocConsumer<UsersBloc, UsersState>(
-                  bloc: _usersBloc,
-                  listenWhen: (prev, current) =>
-                      prev.statusGetAll != current.statusGetAll,
-                  listener: (context, state) {
-                    if (state.statusGetAll == StatusEnum.failure) {
-                      Navigator.of(context).pushNamed(AppRoutes.modalError,
-                          arguments: state.errorMessage);
-                    }
-                  },
-                  builder: (context, state) {
-                    var listAllUser = state.listAllUserSearch;
-                    var listView = listAllUser.isEmpty
-                        ? emptyState
-                        : Scrollbar(
-                            controller: scrollController,
-                            child: ListView.builder(
-                              controller: scrollController,
-                              itemCount: listAllUser.length + 1,
-                              keyboardDismissBehavior:
-                                  ScrollViewKeyboardDismissBehavior.onDrag,
-                              itemBuilder: (context, index) {
-                                // index >= 0 &&
-                                //     index <= listAllUser.length - 1
-                                if (index < listAllUser.length) {
-                                  var user = listAllUser[index];
-                                  var widgetCard = CardUserWidget(
-                                    userEntity: user,
-                                    onShowProfile: () => _onShowProfile(user),
-                                  );
-                                  return widgetCard;
-                                }
-                                return LoadingMoreWidget(query: query);
-                              },
-                            ),
-                          );
+              );
+            },
+          ),
+          Expanded(
+            child: BlocConsumer<UsersBloc, UsersState>(
+              bloc: _usersBloc,
+              listenWhen: (prev, current) =>
+              prev.statusGetAll != current.statusGetAll,
+              listener: (context, state) {
+                if (state.statusGetAll == StatusEnum.failure) {
+                  Navigator.of(context).pushNamed(AppRoutes.modalError,
+                      arguments: state.errorMessage);
+                }
+              },
+              builder: (context, state) {
+                var listAllUser = state.listAllUserSearch;
+                var listView = listAllUser.isEmpty
+                    ? emptyState
+                    : Scrollbar(
+                  controller: scrollController,
+                  child: ListView.builder(
+                    controller: scrollController,
+                    itemCount: listAllUser.length + 1,
+                    keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                    itemBuilder: (context, index) {
+                      // index >= 0 &&
+                      //     index <= listAllUser.length - 1
+                      if (index < listAllUser.length) {
+                        var user = listAllUser[index];
+                        var widgetCard = CardUserWidget(
+                          userEntity: user,
+                          onShowProfile: () => _onShowProfile(user),
+                        );
+                        return widgetCard;
+                      }
+                      return LoadingMoreWidget(query: query);
+                    },
+                  ),
+                );
 
-                    return SwitcherAnimateWidget(
-                      child: state.statusGetAll == StatusEnum.loading
-                          ? const SchimmerCards()
-                          : state.statusGetAll == StatusEnum.failure
-                              ? pageError
-                              : listView,
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                return SwitcherAnimateWidget(
+                  child: state.statusGetAll == StatusEnum.loading
+                      ? const SchimmerCards()
+                      : state.statusGetAll == StatusEnum.failure
+                      ? pageError
+                      : listView,
+                );
+              },
+            ),
+          ),
+        ],
+      )
     );
   }
 
